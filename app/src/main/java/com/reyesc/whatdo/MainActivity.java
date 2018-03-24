@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Fragment> fragmentStack;
+    private static Context context;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
         fragmentStack = new ArrayList<Fragment>();
         setContentView(R.layout.activity_main);
 
@@ -143,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void toasting(String string){
-        Toast toast = Toast.makeText(getApplicationContext(), string, Toast.LENGTH_LONG);
+    public static void toasting(String string){
+        Toast toast = Toast.makeText(context, string, Toast.LENGTH_LONG);
         toast.show();
     }
 }

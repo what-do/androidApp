@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.reyesc.whatdo.MainActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_margin="5dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +21,8 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="320dp"
+                android:padding="10dp"
                 android:src="@color/gray" />
 
             <TextView
@@ -33,12 +34,13 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="10dp"
                 android:maxLines="2"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 android:text="DATE\n31"/>
 
             <TextView
@@ -48,7 +50,7 @@
                 android:layout_below="@id/imageView"
                 android:layout_toStartOf="@+id/textViewDate"
                 android:layout_alignLeft="@id/imageView"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:textColor="@color/black"
@@ -63,7 +65,7 @@
                 android:layout_below="@id/textViewTitle"
                 android:layout_toStartOf="@+id/textViewDate"
                 android:layout_alignLeft="@id/imageView"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:textColor="@color/colorPrimaryDark"
@@ -78,8 +80,8 @@
                 android:layout_below="@id/textViewTags"
                 android:layout_toStartOf="@+id/textViewDate"
                 android:layout_alignLeft="@id/imageView"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:maxLines="2"
                 android:textColor="@color/black"

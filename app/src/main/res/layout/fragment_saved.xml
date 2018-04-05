@@ -1,14 +1,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_saved"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reyesc.whatdo.DiscoverFragment">
+    tools:context="com.reyesc.whatdo.FragmentDiscover">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_saved" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardCollectionSaved"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>

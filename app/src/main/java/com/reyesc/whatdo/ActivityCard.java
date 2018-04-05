@@ -2,6 +2,7 @@ package com.reyesc.whatdo;
 
 public class ActivityCard {
     private int id;
+
     private int image;
     private String date;
     private String title;

@@ -14,6 +14,60 @@
         android:layout_margin="10dp">
 
         <RelativeLayout
+            android:id="@+id/view_background"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_thumbs">
+
+            <ImageView
+                android:id="@+id/thumb_down_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_thumb_down"
+                android:contentDescription="@string/thumbs_down" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/thumb_down_icon"
+                android:layout_alignParentEnd="true"
+                android:text="@string/thumbs_down"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/thumb_up_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_thumb_up"
+                android:contentDescription="@string/thumbs_up" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/thumb_up_icon"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="@string/thumbs_up"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_foreground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -23,7 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
                 android:padding="10dp"
-                android:src="@color/gray" />
+                android:src="@color/gray"
+                android:contentDescription="Activity Image" />
 
             <TextView
                 android:id="@+id/textViewDate"
@@ -49,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageView"
                 android:layout_toStartOf="@+id/textViewDate"
-                android:layout_alignLeft="@id/imageView"
+                android:layout_alignStart="@id/imageView"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
@@ -64,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewTitle"
                 android:layout_toStartOf="@+id/textViewDate"
-                android:layout_alignLeft="@id/imageView"
+                android:layout_alignStart="@id/imageView"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
@@ -79,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewTags"
                 android:layout_toStartOf="@+id/textViewDate"
-                android:layout_alignLeft="@id/imageView"
+                android:layout_alignStart="@id/imageView"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"

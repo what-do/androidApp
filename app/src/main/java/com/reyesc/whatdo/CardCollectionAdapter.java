@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implements CardTouchHelper.CardTouchHelperListener {
+public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> implements CardTouchHelper.CardTouchHelperListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private List<ActivityCard> cardList;
@@ -23,7 +23,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
     private boolean loading;
     private FragmentExtension.FragmentToActivityListener fragmentToActivityListener;
 
-    public CardFeedAdapter(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView, ArrayList<ActivityCard> cardList, FragmentExtension.FragmentToActivityListener fragmentToActivityListener){
+    public CardCollectionAdapter(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView, ArrayList<ActivityCard> cardList, FragmentExtension.FragmentToActivityListener fragmentToActivityListener){
         this.swipeRefreshLayout = swipeRefreshLayout;
         this.recyclerView = recyclerView;
         this.cardList = cardList;
@@ -32,7 +32,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshCardFeed();
+                refreshCardCollection();
             }
         });
 
@@ -40,11 +40,11 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                loadCardFeed();
+                loadCardCollection();
             }
         });
 
-        ItemTouchHelper.SimpleCallback cardTouchHelperCallback = new CardTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        ItemTouchHelper.SimpleCallback cardTouchHelperCallback = new CardTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(cardTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         loadMoreCards();
@@ -104,38 +104,26 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
 
             final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
 
-            Snackbar snackbar;
-            if (direction == ItemTouchHelper.LEFT) {
-                removeCard(deletedItem);
-                snackbar = Snackbar.make(swipeRefreshLayout, name + " removed from list!", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        restoreCard(deletedItem);
-                    }
-                });
-            } else {
-                fragmentToActivityListener.fromFeedToCollection(deletedItem);
-                snackbar = Snackbar.make(swipeRefreshLayout, name + " saved for later!", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        fragmentToActivityListener.fromCollectionToFeed(deletedItem);
-                    }
-                });
-            }
+            fragmentToActivityListener.fromCollectionToFeed(deletedItem);
+            Snackbar snackbar = Snackbar.make(swipeRefreshLayout, name + " removed from list!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fragmentToActivityListener.fromFeedToCollection(deletedItem);
+                }
+            });
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
         }
     }
 
-    private void refreshCardFeed(){
+    private void refreshCardCollection(){
         fragmentToActivityListener.toasting("Refreshing");
         this.notifyItemInserted(cardList.size());
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void loadCardFeed() {
+    private void loadCardCollection() {
         LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         int totalItemCount = layoutManager.getItemCount();
         int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
@@ -148,9 +136,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
     }
 
     private void loadMoreCards(){
-        for(int i = 0; i < loadCount; i++){
-            cardList.add(new ActivityCard((cardList.size()),0,"Date\n31", "Title" + (cardList.size()), "Tags", "Description"));
-        }
+        // load more form server
         this.notifyItemInserted(cardList.size());
         loading = false;
     }

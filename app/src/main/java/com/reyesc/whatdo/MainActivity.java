@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements FragmentExtension.FragmentToActivityListener {
     private ArrayList<Fragment> fragmentStack;
+    private BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,10 +54,16 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
 
         createFragments();
 
-        BottomNavigationView navigation = findViewById(R.id.navigationView);
+        navigation = findViewById(R.id.navigationView);
         navigation.setSelectedItemId(R.id.navigation_discover);
         NavBarHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private void createFragments() {

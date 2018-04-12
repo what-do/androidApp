@@ -13,4 +13,6 @@
         tellus ornare. Aliquam posuere tellus nulla, id lacinia nulla vehicula at. Praesent vestibulum, ex ut posuere vulputate,
         eros purus venenatis orci, eu scelerisque turpis sapien ac enim. Praesent mi quam, vestibulum quis diam a, interdum dapibus urna.
         Ut sit amet arcu vel erat facilisis hendrerit. Maecenas dolor augue, efficitur nec eleifend non, eleifend quis urna.</string>
+    <string name="facebook_app_id">207576716641126</string>
+    <string name="fb_login_protocol_scheme">fb207576716641126</string>
 </resources>

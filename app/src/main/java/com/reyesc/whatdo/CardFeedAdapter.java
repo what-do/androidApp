@@ -3,7 +3,6 @@ package com.reyesc.whatdo;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -15,26 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implements CardTouchHelper.CardTouchHelperListener {
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private List<ActivityCard> cardList;
     private int visibleThreshold = 3;
     private int loadCount = 10;
+    private int totalLoaded;
     private boolean loading;
     private FragmentExtension.FragmentToActivityListener fragmentToActivityListener;
 
-    public CardFeedAdapter(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView, ArrayList<ActivityCard> cardList, FragmentExtension.FragmentToActivityListener fragmentToActivityListener){
-        this.swipeRefreshLayout = swipeRefreshLayout;
+    public CardFeedAdapter(RecyclerView recyclerView, ArrayList<ActivityCard> cardList, FragmentExtension.FragmentToActivityListener fragmentToActivityListener){
         this.recyclerView = recyclerView;
         this.cardList = cardList;
         this.fragmentToActivityListener = fragmentToActivityListener;
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshCardFeed();
-            }
-        });
+        totalLoaded = 0;
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -53,20 +45,14 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.activity_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new CardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        ActivityCard activityCard = cardList.get(position);
-
-        //holder.imageView.setImageDrawable(context.getDrawable(activityCard.getImage()));
-        holder.getTextViewDate().setText(activityCard.getDate());
-        holder.getTextViewTitle().setText(activityCard.getTitle());
-        holder.getTextViewTags().setText(activityCard.getTags());
-        holder.getTextViewDescription().setText(activityCard.getDescription());
+        holder.setIsRecyclable(false);
+        holder.bindData(cardList.get(position));
     }
 
     @Override
@@ -74,26 +60,29 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
         return cardList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return R.layout.activity_card;
+    }
+
     protected void removeCard(ActivityCard card) {
         int position = cardList.indexOf(card);
         cardList.remove(position);
-//        recyclerView.removeViewAt(position);
-        this.notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     protected void restoreCard(ActivityCard card) {
-        int position;
-        position = 0;
+        int position = 0;
         while (position < cardList.size() && card.getId() > cardList.get(position).getId()) {
             position++;
         }
 
         if (position < cardList.size()) {
             cardList.add(position, card);
-            this.notifyItemInserted(position);
+            notifyItemInserted(position);
         } else {
             cardList.add(card);
-            this.notifyItemInserted(cardList.size() - 1);
+            notifyItemInserted(cardList.size() - 1);
         }
     }
 
@@ -107,7 +96,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
             Snackbar snackbar;
             if (direction == ItemTouchHelper.LEFT) {
                 removeCard(deletedItem);
-                snackbar = Snackbar.make(swipeRefreshLayout, name + " removed from list!", Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardFeedDiscover), name + " removed from list!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -116,7 +105,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
                 });
             } else {
                 fragmentToActivityListener.fromFeedToCollection(deletedItem);
-                snackbar = Snackbar.make(swipeRefreshLayout, name + " saved for later!", Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardFeedDiscover), name + " saved for later!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -127,12 +116,6 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
         }
-    }
-
-    private void refreshCardFeed(){
-        fragmentToActivityListener.toasting("Refreshing");
-        this.notifyItemInserted(cardList.size());
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void loadCardFeed() {
@@ -149,9 +132,10 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
 
     private void loadMoreCards(){
         for(int i = 0; i < loadCount; i++){
-            cardList.add(new ActivityCard((cardList.size()),0,"Date\n31", "Title" + (cardList.size()), "Tags", "Description"));
+            cardList.add(new ActivityCard((totalLoaded),0,"Date\n31", "Title" + (totalLoaded), "Tags", "Description"));
+            totalLoaded++;
+            notifyItemInserted(cardList.size());
         }
-        this.notifyItemInserted(cardList.size());
         loading = false;
     }
 }

@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     tools:context="com.reyesc.whatdo.FragmentDiscover">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cardCollectionSaved"
@@ -19,6 +19,6 @@
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>

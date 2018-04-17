@@ -3,8 +3,6 @@ package com.reyesc.whatdo;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
@@ -15,26 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> implements CardTouchHelper.CardTouchHelperListener {
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private List<ActivityCard> cardList;
     private int visibleThreshold = 3;
     private int loadCount = 10;
+    private int totalLoaded;
     private boolean loading;
     private FragmentExtension.FragmentToActivityListener fragmentToActivityListener;
 
-    public CardCollectionAdapter(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView, ArrayList<ActivityCard> cardList, FragmentExtension.FragmentToActivityListener fragmentToActivityListener){
-        this.swipeRefreshLayout = swipeRefreshLayout;
+    public CardCollectionAdapter(RecyclerView recyclerView, ArrayList<ActivityCard> cardList, FragmentExtension.FragmentToActivityListener fragmentToActivityListener){
         this.recyclerView = recyclerView;
         this.cardList = cardList;
         this.fragmentToActivityListener = fragmentToActivityListener;
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshCardCollection();
-            }
-        });
+        totalLoaded = 0;
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -53,20 +44,14 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.activity_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_card, parent, false);
         return new CardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        ActivityCard activityCard = cardList.get(position);
-
-        //holder.imageView.setImageDrawable(context.getDrawable(activityCard.getImage()));
-        holder.getTextViewDate().setText(activityCard.getDate());
-        holder.getTextViewTitle().setText(activityCard.getTitle());
-        holder.getTextViewTags().setText(activityCard.getTags());
-        holder.getTextViewDescription().setText(activityCard.getDescription());
+        holder.setIsRecyclable(false);
+        holder.bindData(cardList.get(position));
     }
 
     @Override
@@ -74,16 +59,19 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
         return cardList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return R.layout.activity_card;
+    }
+
     protected void removeCard(ActivityCard card) {
         int position = cardList.indexOf(card);
         cardList.remove(position);
-//        recyclerView.removeViewAt(position);
-        this.notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     protected void restoreCard(ActivityCard card) {
-        int position;
-        position = 0;
+        int position = 0;
         while (position < cardList.size() && card.getId() > cardList.get(position).getId()) {
             position++;
         }
@@ -105,7 +93,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
             final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
 
             fragmentToActivityListener.fromCollectionToFeed(deletedItem);
-            Snackbar snackbar = Snackbar.make(swipeRefreshLayout, name + " removed from list!", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardCollectionSaved), name + " removed from list!", Snackbar.LENGTH_LONG);
             snackbar.setAction("UNDO", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,22 +105,16 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
         }
     }
 
-    private void refreshCardCollection(){
-        fragmentToActivityListener.toasting("Refreshing");
-        this.notifyItemInserted(cardList.size());
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
     private void loadCardCollection() {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        int totalItemCount = layoutManager.getItemCount();
-        int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-        if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-            // End has been reached, do something
-            fragmentToActivityListener.toasting("More cards loaded");
-            loading = true;
-            loadMoreCards();
-        }
+//        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        int totalItemCount = layoutManager.getItemCount();
+//        int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+//        if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+//            // End has been reached, do something
+//            fragmentToActivityListener.toasting("More cards loaded");
+//            loading = true;
+//            loadMoreCards();
+//        }
     }
 
     private void loadMoreCards(){

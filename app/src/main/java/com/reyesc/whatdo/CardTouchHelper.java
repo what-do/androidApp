@@ -19,25 +19,11 @@ public class CardTouchHelper extends ItemTouchHelper.SimpleCallback {
     }
 
     @Override
-    public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-        if (viewHolder != null) {
-            final View foregroundView = ((CardViewHolder) viewHolder).getViewForeground();
-            getDefaultUIUtil().onSelected(foregroundView);
-        }
-    }
-
-    @Override
-    public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((CardViewHolder) viewHolder).getViewForeground();
-        getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
-    }
-
-    @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((CardViewHolder) viewHolder).getViewForeground();
+        final View foregroundView = ((CardViewHolder) viewHolder).getCardView();
 
         View itemView = viewHolder.itemView;
-        float width = 4*itemView.getWidth()/10;
+        float width = 3*itemView.getWidth()/10;
 
         if(Math.abs(dX) < width) {
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
@@ -48,7 +34,7 @@ public class CardTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        final View foregroundView = ((CardViewHolder) viewHolder).getViewForeground();
+        final View foregroundView = ((CardViewHolder) viewHolder).getCardView();
         getDefaultUIUtil().clearView(foregroundView);
     }
 
@@ -59,5 +45,15 @@ public class CardTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     public interface CardTouchHelperListener {
         void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position);
+    }
+
+    @Override
+    public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
+        return .1f;
+    }
+
+    @Override
+    public float getSwipeEscapeVelocity(float defaultValue) {
+        return .1f;
     }
 }

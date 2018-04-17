@@ -26,7 +26,6 @@ public class FragmentDiscover extends FragmentExtension {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-            SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
             RecyclerView recyclerView = view.findViewById(R.id.cardFeedDiscover);
 
             recyclerView.setHasFixedSize(true);
@@ -34,7 +33,7 @@ public class FragmentDiscover extends FragmentExtension {
             recyclerView.setItemAnimator(new DefaultItemAnimator());
 
             cardList = new ArrayList<>();
-            CardFeedAdapter cardFeed = new CardFeedAdapter(swipeRefreshLayout, recyclerView, cardList, fragmentToActivityListener);
+            CardFeedAdapter cardFeed = new CardFeedAdapter(recyclerView, cardList, fragmentToActivityListener);
             recyclerView.setAdapter(cardFeed);
         }
         return view;

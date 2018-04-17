@@ -26,7 +26,6 @@ public class FragmentSaved extends FragmentExtension {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-            SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
             RecyclerView recyclerView = view.findViewById(R.id.cardCollectionSaved);
 
             recyclerView.setHasFixedSize(true);
@@ -34,7 +33,7 @@ public class FragmentSaved extends FragmentExtension {
             recyclerView.setItemAnimator(new DefaultItemAnimator());
 
             cardList = new ArrayList<>();
-            CardCollectionAdapter cardCollection = new CardCollectionAdapter(swipeRefreshLayout, recyclerView, cardList, fragmentToActivityListener);
+            CardCollectionAdapter cardCollection = new CardCollectionAdapter(recyclerView, cardList, fragmentToActivityListener);
             recyclerView.setAdapter(cardCollection);
         }
 

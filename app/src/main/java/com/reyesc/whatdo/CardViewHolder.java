@@ -1,26 +1,90 @@
 package com.reyesc.whatdo;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-class CardViewHolder extends RecyclerView.ViewHolder {
+class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private View frontView, backView;
     private ImageView imageView;
     private TextView textViewDate, textViewTitle, textViewTags, textViewDescription;
-    private RelativeLayout viewBackground, viewForeground;
+    private CardView cardView;
+    private ActivityCard activityCard;
 
     public CardViewHolder(View itemView) {
         super(itemView);
 
-        imageView = itemView.findViewById(R.id.imageView);
-        textViewDate = itemView.findViewById(R.id.textViewDate);
-        textViewTitle = itemView.findViewById(R.id.textViewTitle);
-        textViewTags = itemView.findViewById(R.id.textViewTags);
-        textViewDescription = itemView.findViewById(R.id.textViewDescription);
-        viewBackground = itemView.findViewById(R.id.view_background);
-        viewForeground = itemView.findViewById(R.id.view_foreground);
+        cardView = (CardView) itemView;
+        frontView = itemView.findViewById(R.id.cardViewFront);
+        backView = itemView.findViewById(R.id.cardViewBack);
+        imageView = itemView.findViewById(R.id.imageViewFront);
+        textViewDate = itemView.findViewById(R.id.textViewDateFront);
+        textViewTitle = itemView.findViewById(R.id.textViewTitleFront);
+        textViewTags = itemView.findViewById(R.id.textViewTagsFront);
+        textViewDescription = itemView.findViewById(R.id.textViewDescriptionFront);
+
+        itemView.setOnClickListener(this);
+    }
+
+    public void bindData(ActivityCard activityCard) {
+        this.activityCard = activityCard;
+        if(activityCard.showingFront){
+            frontView.setAlpha(1.0f);
+            backView.setAlpha(0.0f);
+        }else {
+            backView.setAlpha(1.0f);
+            frontView.setAlpha(0.0f);
+        }
+//        imageView.setImageDrawable(cardView.getContext().getDrawable(activityCard.getImage()));
+//        textViewDate.setText(activityCard.getDate());
+        textViewTitle.setText(activityCard.getTitle());
+//        textViewTags.setText(activityCard.getTags());
+//        textViewDescription.setText(activityCard.getDescription());
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(activityCard.showingFront){
+            flipView(itemView.getContext(), frontView, backView,false);
+            activityCard.showingFront = false;
+        }else {
+            flipView(itemView.getContext(), frontView, backView,true);
+            activityCard.showingFront = true;
+        }
+    }
+
+    public void flipView(Context context, View back, View front, boolean showFront) {
+        AnimatorSet leftIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_front_in);
+        AnimatorSet rightOut = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_back_out);
+        AnimatorSet leftOut  = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_front_out);
+        AnimatorSet rightIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_back_in);
+
+        AnimatorSet showFrontAnim = new AnimatorSet();
+        AnimatorSet showBackAnim = new AnimatorSet();
+
+        leftIn.setTarget(back);
+        rightOut.setTarget(front);
+        showFrontAnim.playTogether(leftIn, rightOut);
+
+        leftOut.setTarget(back);
+        rightIn.setTarget(front);
+        showBackAnim.playTogether(rightIn, leftOut);
+
+        if (showFront) {
+            showFrontAnim.start();
+        } else {
+            showBackAnim.start();
+        }
+    }
+
+    public CardView getCardView() {
+        return cardView;
     }
 
     public ImageView getImageView(){
@@ -41,13 +105,5 @@ class CardViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getTextViewDescription() {
         return textViewDescription;
-    }
-
-    public RelativeLayout getViewBackground() {
-        return viewBackground;
-    }
-
-    public RelativeLayout getViewForeground() {
-        return viewForeground;
     }
 }

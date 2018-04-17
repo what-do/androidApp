@@ -2,12 +2,12 @@ package com.reyesc.whatdo;
 
 public class ActivityCard {
     private int id;
-
     private int image;
     private String date;
     private String title;
     private String tags;
     private String description;
+    public boolean showingFront;
 
     public ActivityCard(int id, int image, String date, String title, String tags, String description) {
         this.id = id;
@@ -16,6 +16,7 @@ public class ActivityCard {
         this.title = title;
         this.tags = tags;
         this.description = description;
+        showingFront = true;
     }
 
     public int getId(){

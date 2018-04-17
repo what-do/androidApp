@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,17 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+
 import java.util.ArrayList;
 
+import static com.reyesc.whatdo.LoginActivity.ACCESS_TOKEN;
+
 public class MainActivity extends AppCompatActivity implements FragmentExtension.FragmentToActivityListener {
+    private Bundle profileArgs;
+    private AccessToken mAccessToken;
     private ArrayList<Fragment> fragmentStack;
+    private BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,9 +48,19 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         fragmentStack = new ArrayList<>();
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        profileArgs = intent.getExtras();
+        mAccessToken = (AccessToken)profileArgs.get(ACCESS_TOKEN);
+
+        //TODO: remove this print
+        System.out.println("success\nuser id: "
+                + mAccessToken.getUserId().toString()
+                + "\nuser permissions: "
+                + mAccessToken.getPermissions().toString());
+
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -53,16 +71,24 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
 
         createFragments();
 
-        BottomNavigationView navigation = findViewById(R.id.navigationView);
+        navigation = findViewById(R.id.navigationView);
         navigation.setSelectedItemId(R.id.navigation_discover);
         NavBarHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    //TODO: add async refresh here?
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private void createFragments() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment = new FragmentProfile();
         transaction.add(R.id.container, fragment, String.valueOf(R.id.fragment_profile));
+        fragment.setArguments(profileArgs);
         transaction.commit();
 
         transaction = getSupportFragmentManager().beginTransaction();

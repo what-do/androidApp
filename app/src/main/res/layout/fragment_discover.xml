@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,3 +21,28 @@
     </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>
+=======
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_discover"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reyesc.whatdo.FragmentDiscover">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardFeedDiscover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>
+>>>>>>> c6b6465666933fb93d9198a500964be9006b8917

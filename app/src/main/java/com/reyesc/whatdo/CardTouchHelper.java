@@ -23,7 +23,7 @@ public class CardTouchHelper extends ItemTouchHelper.SimpleCallback {
         final View foregroundView = ((CardViewHolder) viewHolder).getCardView();
 
         View itemView = viewHolder.itemView;
-        float width = 3*itemView.getWidth()/10;
+        float width = itemView.getWidth();
 
         if(Math.abs(dX) < width) {
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);

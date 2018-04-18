@@ -36,7 +36,8 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
             }
         });
 
-        ItemTouchHelper.SimpleCallback cardTouchHelperCallback = new CardTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        ItemTouchHelper.SimpleCallback cardTouchHelperCallback = new CardTouchHelper(0,
+                ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(cardTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         loadMoreCards();
@@ -103,6 +104,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
                         restoreCard(deletedItem);
                     }
                 });
+                snackbar.getView().setBackgroundColor(Color.parseColor("#C40233"));
             } else {
                 fragmentToActivityListener.fromFeedToCollection(deletedItem);
                 snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardFeedDiscover), name + " saved for later!", Snackbar.LENGTH_LONG);
@@ -112,8 +114,9 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
                         fragmentToActivityListener.fromCollectionToFeed(deletedItem);
                     }
                 });
+                snackbar.getView().setBackgroundColor(Color.parseColor("#009F6B"));
             }
-            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.setActionTextColor(Color.WHITE);
             snackbar.show();
         }
     }

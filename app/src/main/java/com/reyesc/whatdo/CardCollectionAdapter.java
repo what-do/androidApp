@@ -35,7 +35,8 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
             }
         });
 
-        ItemTouchHelper.SimpleCallback cardTouchHelperCallback = new CardTouchHelper(0, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper.SimpleCallback cardTouchHelperCallback = new CardTouchHelper(0,
+                ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(cardTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         loadMoreCards();
@@ -88,20 +89,23 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof CardViewHolder) {
-            String name = cardList.get(viewHolder.getAdapterPosition()).getTitle();
+            if (direction == ItemTouchHelper.LEFT) {
+                String name = cardList.get(viewHolder.getAdapterPosition()).getTitle();
 
-            final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
+                final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
 
-            fragmentToActivityListener.fromCollectionToFeed(deletedItem);
-            Snackbar snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardCollectionSaved), name + " removed from list!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    fragmentToActivityListener.fromFeedToCollection(deletedItem);
-                }
-            });
-            snackbar.setActionTextColor(Color.YELLOW);
-            snackbar.show();
+                fragmentToActivityListener.fromCollectionToFeed(deletedItem);
+                Snackbar snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardCollectionSaved), name + " removed from list!", Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fragmentToActivityListener.fromFeedToCollection(deletedItem);
+                    }
+                });
+                snackbar.getView().setBackgroundColor(Color.parseColor("#C40233"));
+                snackbar.setActionTextColor(Color.WHITE);
+                snackbar.show();
+            }
         }
     }
 

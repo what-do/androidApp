@@ -10,14 +10,23 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestBatch;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     public final static String ACCESS_TOKEN = "com.reyesc.whatdo.ACCESS_TOKEN";
+    public final static String USER_NAME = "com.reyesc.whatdo.USER_NAME";
     //read permissions
 
     //permissions that do NOT require FB Review
@@ -60,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println("already logged in");
             loginHandler(mAccessToken);
         } else {
-            mLoginButton.setReadPermissions(Arrays.asList(EMAIL, PUB_PROF/*, USER_EVENTS*/));
+            mLoginButton.setReadPermissions(Arrays.asList(EMAIL, PUB_PROF, USER_EVENTS, USER_BDAY, USER_LOC));
             LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
@@ -97,11 +106,63 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginHandler(AccessToken mAccessToken) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra(ACCESS_TOKEN, mAccessToken);
-            System.out.println("attempting to send user info\nuser id: "
-                    + mAccessToken.getUserId().toString());
-            startActivity(intent);
+        String user_id = mAccessToken.getUserId().toString();
+        System.out.println("user id: " + user_id);
+        final String[] name = {""};
+
+        GraphRequestBatch batch = new GraphRequestBatch(
+                GraphRequest.newMeRequest(
+                        mAccessToken,
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject jsonObject, GraphResponse response) {
+                                System.out.println("in first request");
+
+                                try {
+                                    System.out.println(jsonObject.toString());
+                                    name[0] = (String)jsonObject.get("name");
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                ),
+                new GraphRequest (
+                        mAccessToken,
+                        "/" + user_id + "/events",
+                        null,
+                        HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            @Override
+                            public void onCompleted(GraphResponse response) {
+                                System.out.println("in second request");
+                                JSONObject jsonObject = response.getJSONObject();
+                                JSONArray jsonArray = response.getJSONArray();
+                                try {
+                                    System.out.println(jsonObject.toString());
+                                    System.out.println(jsonArray.toString());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                )
+        );
+        batch.addCallback(new GraphRequestBatch.Callback() {
+            @Override
+            public void onBatchCompleted(GraphRequestBatch graphRequests) {
+                System.out.println("batch completed");
+            }
+        });
+        batch.executeAsync();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(ACCESS_TOKEN, mAccessToken);
+        intent.putExtra(USER_NAME, name[0]);
+        System.out.println("attempting to send user info\nuser id: "
+                + mAccessToken.getUserId().toString());
+        startActivity(intent);
     }
 
     private boolean isLoggedIn(AccessToken mAccessToken) {

@@ -1,53 +1,47 @@
 package com.reyesc.whatdo;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphRequestBatch;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "LoginActivity";
+    public final static String USER = "com.reyesc.whatdo.USER";
+    public final static String IMG = "com.reyesc.whatdo.IMG";
 
-import java.util.Arrays;
+    private GoogleSignInClient mGoogleSignInClient;
 
-public class LoginActivity extends AppCompatActivity {
-    public final static String ACCESS_TOKEN = "com.reyesc.whatdo.ACCESS_TOKEN";
-    public final static String USER_NAME = "com.reyesc.whatdo.USER_NAME";
-    //read permissions
+    private SignInButton mSignInButton;
+    private TextView userPrompt;
 
-    //permissions that do NOT require FB Review
-    private static final String EMAIL = "email";
-    private static final String PUB_PROF = "public_profile";
-
-    //permissions that require FB Review
-    private static final String USER_LOC = "user_location";
-    private static final String USER_BDAY = "user_birthday";
-    private static final String USER_FRIENDS = "user_friends";
-    private static final String USER_EVENTS = "user_events";
-
-    private CallbackManager mCallbackManager;
-    private AccessToken mAccessToken;
-    private LoginButton mLoginButton;
-    private ProgressBar mProgressBar;
-    private boolean loggedIn;
+    private Bundle args;
+    private Boolean signOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        args = getIntent().getExtras();
+
+        if (args != null) {
+            signOut = args.getBoolean("signout");
+        } else {
+            signOut = false;
+        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -55,127 +49,91 @@ public class LoginActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayUseLogoEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
         setContentView(R.layout.activity_login);
 
-        mProgressBar =findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(View.GONE);
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        mCallbackManager = CallbackManager.Factory.create();
-        mLoginButton = findViewById(R.id.login_button);
-        mAccessToken = AccessToken.getCurrentAccessToken();
-        loggedIn = isLoggedIn(mAccessToken);
+        userPrompt = findViewById(R.id.user_prompt);
+        mSignInButton = findViewById(R.id.login_button);
+        mSignInButton.setOnClickListener(this);
+    }
 
-        if (loggedIn) {
-            System.out.println("already logged in");
-            loginHandler(mAccessToken);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void signIn() {
+        userPrompt.setVisibility(View.GONE);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 0);
+    }
+
+    private User createUser(GoogleSignInAccount account) {
+        String id = account.getId();
+        String email = account.getEmail();
+        String username = account.getDisplayName();
+        Uri img = account.getPhotoUrl();
+        Log.i(TAG, img.toString());
+        return User.getInstance(id, email, username);
+    }
+
+    private void handleSignInResult (Task<GoogleSignInAccount> completedTask) {
+        try  {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            updateUI(account);
+        } catch (ApiException e) {
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            userPrompt.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void updateUI(GoogleSignInAccount account) {
+        if (account == null) {
+            mSignInButton.setVisibility(View.VISIBLE);
+            mSignInButton.setSize(mSignInButton.SIZE_STANDARD);
         } else {
-            mLoginButton.setReadPermissions(Arrays.asList(EMAIL, PUB_PROF, USER_EVENTS, USER_BDAY, USER_LOC));
-            LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                    System.out.println("login successful");
-                    mLoginButton.setVisibility(View.GONE);
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    mAccessToken = loginResult.getAccessToken();
-                    loggedIn = isLoggedIn(mAccessToken);
-                    if (loggedIn) {
-                        loginHandler(mAccessToken);
-                    } else {
-                        System.out.println("error");
-                    }
-                }
-
-                @Override
-                public void onCancel() {
-                    System.out.println("login canceled");
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-                    System.out.println("login error");
-
-                }
-            });
+            if (signOut) {
+                mGoogleSignInClient.signOut()
+                        .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                signOut = false;
+                            }
+                        });
+            } else {
+                mSignInButton.setVisibility(View.GONE);
+                User user = createUser(account);
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra(USER, user);
+                intent.putExtra(IMG, account.getPhotoUrl());
+                startActivity(intent);
+            }
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void loginHandler(AccessToken mAccessToken) {
-        String user_id = mAccessToken.getUserId().toString();
-        System.out.println("user id: " + user_id);
-        final String[] name = {""};
-
-        GraphRequestBatch batch = new GraphRequestBatch(
-                GraphRequest.newMeRequest(
-                        mAccessToken,
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject jsonObject, GraphResponse response) {
-                                System.out.println("in first request");
-
-                                try {
-                                    System.out.println(jsonObject.toString());
-                                    name[0] = (String)jsonObject.get("name");
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                ),
-                new GraphRequest (
-                        mAccessToken,
-                        "/" + user_id + "/events",
-                        null,
-                        HttpMethod.GET,
-                        new GraphRequest.Callback() {
-                            @Override
-                            public void onCompleted(GraphResponse response) {
-                                System.out.println("in second request");
-                                JSONObject jsonObject = response.getJSONObject();
-                                JSONArray jsonArray = response.getJSONArray();
-                                try {
-                                    System.out.println(jsonObject.toString());
-                                    System.out.println(jsonArray.toString());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                )
-        );
-        batch.addCallback(new GraphRequestBatch.Callback() {
-            @Override
-            public void onBatchCompleted(GraphRequestBatch graphRequests) {
-                System.out.println("batch completed");
-            }
-        });
-        batch.executeAsync();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(ACCESS_TOKEN, mAccessToken);
-        intent.putExtra(USER_NAME, name[0]);
-        System.out.println("attempting to send user info\nuser id: "
-                + mAccessToken.getUserId().toString());
-        startActivity(intent);
-    }
-
-    private boolean isLoggedIn(AccessToken mAccessToken) {
-        if (mAccessToken != null) {
-            return true;
-        } else {
-            return false;
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.login_button:
+                signIn();
+                break;
         }
     }
-
-    //TODO: permissions switches
-    /**
-    private void setPermissionSwitches() {
-    }
-     */
 }

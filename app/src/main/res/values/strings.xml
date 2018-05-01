@@ -8,11 +8,7 @@
     <string name="thumbs_down">THUMBS\nDOWN</string>
     <string name="loremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus ex a odio scelerisque vulputate.
         Proin tempus magna sit amet nisi iaculis fermentum. In hac habitasse platea dictumst. In commodo euismod ante nec rhoncus.
-        Ut lacinia ut tellus eget imperdiet. Morbi vulputate sollicitudin suscipit. Nam auctor tellus ac tincidunt consequat.
-        Maecenas lacus massa, vulputate in maximus ultricies, hendrerit ut velit. Quisque luctus ligula et nulla euismod, id bibendum
-        tellus ornare. Aliquam posuere tellus nulla, id lacinia nulla vehicula at. Praesent vestibulum, ex ut posuere vulputate,
-        eros purus venenatis orci, eu scelerisque turpis sapien ac enim. Praesent mi quam, vestibulum quis diam a, interdum dapibus urna.
-        Ut sit amet arcu vel erat facilisis hendrerit. Maecenas dolor augue, efficitur nec eleifend non, eleifend quis urna.</string>
+        Ut lacinia ut tellus eget imperdiet. Morbi vulputate sollicitudin suscipit. Nam auctor tellus ac tincidunt consequat.</string>
     <string name="facebook_app_id">207576716641126</string>
     <string name="fb_login_protocol_scheme">fb207576716641126</string>
 </resources>

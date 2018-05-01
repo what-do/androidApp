@@ -49,7 +49,7 @@ public class CardTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
-        return .1f;
+        return .35f;
     }
 
     @Override

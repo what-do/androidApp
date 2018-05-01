@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
         profileArgs = intent.getExtras();
         mAccessToken = (AccessToken)profileArgs.get(ACCESS_TOKEN);
 
-        //TODO: remove this print
-        System.out.println("success\nuser id: "
-                + mAccessToken.getUserId().toString()
-                + "\nuser permissions: "
-                + mAccessToken.getPermissions().toString());
+//        //TODO: remove this print
+//        System.out.println("success\nuser id: "
+//                + mAccessToken.getUserId().toString()
+//                + "\nuser permissions: "
+//                + mAccessToken.getPermissions().toString());
 
 
         if (getSupportActionBar() != null) {

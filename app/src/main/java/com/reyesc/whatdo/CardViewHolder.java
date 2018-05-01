@@ -1,12 +1,19 @@
 package com.reyesc.whatdo;
 
+import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +23,7 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     private TextView textViewDate, textViewTitle, textViewTags, textViewDescription;
     private CardView cardView;
     private ActivityCard activityCard;
+    private PopupWindow popupWindow;
 
     public CardViewHolder(View itemView) {
         super(itemView);
@@ -51,36 +59,41 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(activityCard.showingFront){
-            flipView(itemView.getContext(), frontView, backView,false);
             activityCard.showingFront = false;
+            PopupActivity popupActivity = new PopupActivity(cardView, activityCard);
+            popupActivity.show();
+            //flipView(itemView.getContext(), frontView, backView,false);
         }else {
-            flipView(itemView.getContext(), frontView, backView,true);
             activityCard.showingFront = true;
+            //flipView(itemView.getContext(), frontView, backView,true);
         }
+
     }
 
     public void flipView(Context context, View back, View front, boolean showFront) {
-        AnimatorSet leftIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_front_in);
-        AnimatorSet rightOut = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_back_out);
-        AnimatorSet leftOut  = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_front_out);
-        AnimatorSet rightIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_back_in);
 
-        AnimatorSet showFrontAnim = new AnimatorSet();
-        AnimatorSet showBackAnim = new AnimatorSet();
-
-        leftIn.setTarget(back);
-        rightOut.setTarget(front);
-        showFrontAnim.playTogether(leftIn, rightOut);
-
-        leftOut.setTarget(back);
-        rightIn.setTarget(front);
-        showBackAnim.playTogether(rightIn, leftOut);
+        AnimatorSet showAnim = new AnimatorSet();
 
         if (showFront) {
-            showFrontAnim.start();
+            AnimatorSet frontIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_front_in);
+            AnimatorSet backOut = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_back_out);
+            frontIn.setTarget(back);
+            backOut.setTarget(front);
+            showAnim.playTogether(frontIn, backOut);
         } else {
-            showBackAnim.start();
+            AnimatorSet frontOut  = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_front_out);
+            AnimatorSet backIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.card_flip_back_in);
+            frontOut.setTarget(back);
+            backIn.setTarget(front);
+            showAnim.playTogether(backIn, frontOut);
         }
+        showAnim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+            }
+        });
+        showAnim.start();
     }
 
     public CardView getCardView() {

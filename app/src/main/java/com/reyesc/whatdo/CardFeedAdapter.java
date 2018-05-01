@@ -1,14 +1,18 @@
 package com.reyesc.whatdo;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +58,10 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         holder.bindData(cardList.get(position));
+        if (holder.getTextViewTitle().getText().toString().contains("Sponsored")) {
+            holder.getCardView().findViewById(R.id.cardViewBack).setBackgroundColor(Color.parseColor("#FFFACD"));
+            holder.getCardView().findViewById(R.id.cardViewFront).setBackgroundColor(Color.parseColor("#FFFACD"));
+        }
     }
 
     @Override
@@ -63,7 +71,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.activity_card;
+        return R.layout.card_activity;
     }
 
     protected void removeCard(ActivityCard card) {
@@ -135,7 +143,13 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
 
     private void loadMoreCards(){
         for(int i = 0; i < loadCount; i++){
-            cardList.add(new ActivityCard((totalLoaded),0,"Date\n31", "Title" + (totalLoaded), "Tags", "Description"));
+            String title = "Title" + (totalLoaded);
+            boolean sponsored = false;
+            if (totalLoaded % 10 - 1 == 0) {
+                title = "(Sponsored) " + title;
+                sponsored = true;
+            }
+            cardList.add(new ActivityCard((totalLoaded),0,"Date\n31", title, "Tags", "Description", sponsored));
             totalLoaded++;
             notifyItemInserted(cardList.size());
         }

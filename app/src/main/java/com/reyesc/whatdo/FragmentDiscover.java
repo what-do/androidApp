@@ -8,9 +8,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class FragmentDiscover extends FragmentExtension {
             CardFeedAdapter cardFeed = new CardFeedAdapter(recyclerView, cardList, fragmentToActivityListener);
             recyclerView.setAdapter(cardFeed);
         }
+
         return view;
     }
 

@@ -45,14 +45,18 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_activity, parent, false);
         return new CardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         holder.setIsRecyclable(false);
-        holder.bindData(cardList.get(position));
+        ActivityCard activityCard = cardList.get(position);
+        activityCard.setSaved(true);
+        holder.bindData(activityCard);
+        holder.getCardView().findViewById(R.id.cardViewBack).setBackgroundColor(Color.parseColor("#ffffff"));
+        holder.getCardView().findViewById(R.id.cardViewFront).setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     @Override
@@ -62,13 +66,14 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.activity_card;
+        return R.layout.card_activity;
     }
 
     protected void removeCard(ActivityCard card) {
         int position = cardList.indexOf(card);
         cardList.remove(position);
         notifyDataSetChanged();
+        checkEmpty();
     }
 
     protected void restoreCard(ActivityCard card) {
@@ -84,6 +89,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
             cardList.add(card);
             this.notifyItemInserted(cardList.size() - 1);
         }
+        checkEmpty();
     }
 
     @Override
@@ -93,6 +99,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
                 String name = cardList.get(viewHolder.getAdapterPosition()).getTitle();
 
                 final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
+                deletedItem.setSaved(false);
 
                 fragmentToActivityListener.fromCollectionToFeed(deletedItem);
                 Snackbar snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardCollectionSaved), name + " removed from list!", Snackbar.LENGTH_LONG);
@@ -125,5 +132,14 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
         // load more form server
         this.notifyItemInserted(cardList.size());
         loading = false;
+        checkEmpty();
+    }
+
+    private void checkEmpty(){
+        if (cardList.isEmpty()) {
+            ((View)recyclerView.getParent()).findViewById(R.id.noSaved).setVisibility(View.VISIBLE);
+        } else {
+            ((View)recyclerView.getParent()).findViewById(R.id.noSaved).setVisibility(View.INVISIBLE);
+        }
     }
 }

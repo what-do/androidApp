@@ -88,10 +88,14 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     }*/
 
     public void setProfile() {
-        imageView = view.findViewById(R.id.img);
-        new LoadProfileImage().execute(imgUri.toString());
         TextView name = view.findViewById(R.id.name);
         name.setText(mUser.getUserName());
+        try {
+            imageView = view.findViewById(R.id.img);
+            new LoadProfileImage().execute(imgUri.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void initRecyclerView() {

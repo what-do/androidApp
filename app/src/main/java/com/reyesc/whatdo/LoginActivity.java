@@ -18,6 +18,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.concurrent.Executor;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
     public final static String USER = "com.reyesc.whatdo.USER";
@@ -86,11 +88,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private User createUser(GoogleSignInAccount account) {
+        try {
+            Uri img = account.getPhotoUrl();
+            Log.i(TAG, img.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String id = account.getId();
         String email = account.getEmail();
         String username = account.getDisplayName();
-        Uri img = account.getPhotoUrl();
-        Log.i(TAG, img.toString());
         return User.getInstance(id, email, username);
     }
 

@@ -55,6 +55,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         initRecyclerView();
         initInterests();
         setProfile();
+        createUser();
 
         return view;
     }
@@ -80,7 +81,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     //TODO: if getUser == null then create User
     public void createUser() {
         RequestHttp requestHttp = RequestHttp.getRequestHttp();
-        requestHttp.postRequest(view.getContext(), mUser.getUserId(), mUser.getEmail(), mUser.getUserName());
+        requestHttp.postRequest(view.getContext(), mUser.getUserId(), mUser.getUserEmail(), mUser.getUserName());
     }
 
     //TODO: what does get req return if no user

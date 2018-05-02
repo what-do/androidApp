@@ -7,63 +7,63 @@ import java.util.ArrayList;
  */
 
 public class Group {
-    private String name;
-    private ArrayList<String> friends;
-    private ArrayList<String> interests;
+    private String groupName;
+    private ArrayList<String> groupMembers;
+    private ArrayList<String> groupInterests;
 
-    public Group(String name, ArrayList<String> friends, ArrayList<String> interests) {
-        this.name = name;
-        this.friends = friends;
-        this.interests = interests;
+    public Group(String groupName) {
+        this.groupName = groupName;
+        this.groupMembers = new ArrayList<>();
+        this.groupInterests = new ArrayList<>();
     }
 
     public String getGroupName() {
-        return this.name;
+        return this.groupName;
     }
 
     public void setGroupName(String newName) {
-        this.name = newName;
+        this.groupName = newName;
     }
 
-    public ArrayList<String> getFriends() {
-        return this.friends;
+    public ArrayList<String> getMembers() {
+        return this.groupMembers;
     }
 
-    public void addFriend(String name) {
-        for (String friend : this.friends) {
-            if (friend == name) {
+    public void addMember(String name) {
+        for (String member : this.groupMembers) {
+            if (member == name) {
                 return;
             }
         }
-        this.friends.add(name);
+        this.groupMembers.add(name);
     }
 
-    public void removeFriend(String name) {
-        for (String friend : this.friends) {
-            if (friend == name) {
-                this.friends.remove(friend);
+    public void removeMember(String name) {
+        for (String member : this.groupMembers) {
+            if (member == name) {
+                this.groupMembers.remove(member);
                 return;
             }
         }
     }
 
     public ArrayList<String> getGroupInterests() {
-        return this.interests;
+        return this.groupInterests;
     }
 
     public void addGroupInterest(String i) {
-        for (String interest : this.interests) {
+        for (String interest : this.groupInterests) {
             if (interest == i) {
                 return;
             }
         }
-        this.interests.add(i);
+        this.groupInterests.add(i);
     }
 
     public void removeGroupInterest(String i) {
-        for (String interest : this.interests) {
+        for (String interest : this.groupInterests) {
             if (interest == i) {
-                this.interests.remove(interest);
+                this.groupInterests.remove(interest);
                 return;
             }
         }

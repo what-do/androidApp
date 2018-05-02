@@ -19,12 +19,16 @@ public class User implements Serializable {
     private String email;
     private String username;
     private ArrayList<String> interests;
+    private ArrayList<String> friends;
+    private ArrayList<Group> groups;
 
     private User(String id, String email, String username) {
         this.id = id;
         this.email = email;
         this.username = username;
-        this.interests = new ArrayList<String>();
+        this.interests = new ArrayList<>();
+        this.friends = new ArrayList<>();
+        this.groups = new ArrayList<>();
     }
 
     public static User getInstance(String id, String email, String username) {
@@ -46,13 +50,17 @@ public class User implements Serializable {
         return this.id;
     }
 
-    public String getEmail() {
+    public String getUserEmail() {
         return this.email;
     }
 
     public ArrayList<String> getUserInterests() {
         return this.interests;
     }
+
+    public ArrayList<String> getUserFriends() { return this.friends; }
+
+    public ArrayList<Group> getUserGroups() {return this.groups; }
 
     public void addUserInterest(String i) {
         for (String interest : this.interests) {
@@ -67,6 +75,43 @@ public class User implements Serializable {
         for (String interest : this.interests) {
             if (interest == i) {
                 this.interests.remove(interest);
+                return;
+            }
+        }
+    }
+
+    public void addFriend (String userName) {
+        for (String friend : this.friends) {
+            if (friend == userName) {
+                return;
+            }
+        }
+        this.friends.add(userName);
+    }
+
+    public void removeFriend (String userName) {
+        for (String friend : this.friends) {
+            if (friend == userName) {
+                this.friends.remove(friend);
+                return;
+            }
+        }
+    }
+
+    public void addGroup (String groupName) {
+        for (Group group : this.groups) {
+            if (group.getGroupName() == groupName) {
+                return;
+            }
+        }
+        Group newGroup = new Group(groupName);
+        this.groups.add(newGroup);
+    }
+
+    public void removeGroup (String groupName) {
+        for (Group group : this.groups) {
+            if (group.getGroupName() == groupName) {
+                this.groups.remove(group.getGroupName());
                 return;
             }
         }

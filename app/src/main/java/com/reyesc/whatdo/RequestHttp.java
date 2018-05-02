@@ -80,7 +80,7 @@ public class RequestHttp {
 
     public void putStringRequest(Context context, String id, String task, final JSONArray jsonArray) {
         mRequestQueue = Volley.newRequestQueue(context);
-        String requestUrl = userUrl + task + "/12345";
+        String requestUrl = userUrl + task + "/" + id;
         Log.i(TAG, "sending to " + requestUrl);
         mStringRequest = new StringRequest(Request.Method.PUT, requestUrl, new Response.Listener<String>() {
             @Override

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestViewHolder> {
@@ -16,10 +18,15 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
     private static final String TAG = "InterestRecyclerViewA";
     private ArrayList<Interest> mInterests = new ArrayList<>();
     private Context mContext;
+    private User mUser;
+    private View mView;
 
-    public InterestRecyclerViewAdapter(ArrayList<Interest> interests, Context context) {
+    public InterestRecyclerViewAdapter(ArrayList<Interest> interests, Context context, User user) {
         mInterests = interests;
         mContext = context;
+        mUser = user;
+
+
     }
 
     @NonNull
@@ -31,11 +38,37 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InterestViewHolder viewHolder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
+    public void onBindViewHolder(@NonNull final InterestViewHolder viewHolder, final int position) {
 
         viewHolder.checkBox.setChecked(mInterests.get(position).isInterested());
         viewHolder.interestTag.setText(mInterests.get(position).getTag());
+
+        viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONArray changedInterest = new JSONArray();
+                if (viewHolder.checkBox.isChecked()){
+                    mInterests.get(position).select();
+                    String addedInterest = mInterests.get(position).getTag();
+                    System.out.println("New interest: " + mInterests.get(position).getTag());
+                    mUser.addUserInterest(mInterests.get(position).getTag());
+                    RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                    changedInterest.put(addedInterest.toLowerCase());
+                    requestHttp.putStringRequest(mContext, mUser.getUserId(), "addinterests", changedInterest);
+                }
+                else{
+                    String removedInterest = mInterests.get(position).getTag();
+                    mInterests.get(position).deselect();
+                    System.out.println("Old interest: " + removedInterest);
+                    mUser.removeUserInterest(removedInterest);
+                    RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                    changedInterest.put(removedInterest.toLowerCase());
+                    requestHttp.putStringRequest(mContext, mUser.getUserId(), "removeinterests", changedInterest);
+
+                }
+            }
+        });
+
 
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +77,15 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
                 Toast.makeText(mContext, mInterests.get(position).getTag(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+    }
+
+    public void setFilter(ArrayList<Interest> filter){
+        mInterests = new ArrayList<>();
+        mInterests.addAll(filter);
+        notifyDataSetChanged();
     }
 
     @Override

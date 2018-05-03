@@ -34,6 +34,8 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private ImageView imageView;
     private Uri imgUri;
     private SearchView searchView;
+    private RecyclerView recyclerView;
+    private InterestRecyclerViewAdapter recyclerViewAdapter;
 
     //ArrayList<Interest> interests =  new ArrayList<>();
     ArrayList<Interest> possibleInterests =  new ArrayList<>();
@@ -61,7 +63,8 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         if (mUser.getUserInterests().isEmpty()){
             populatePossibleInterests();
         }
-        getInterests();
+
+
 
         return view;
     }
@@ -108,21 +111,22 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     public void initRecyclerView() {
         Log.d(TAG, "init Recycler View");
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        InterestRecyclerViewAdapter recyclerViewAdapter =
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerViewAdapter =
                 new InterestRecyclerViewAdapter(
                         mUser.getUserInterests(),
-                        view.getContext());
+                        view.getContext(), mUser);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        searchInit();
     }
 
     public void initInterests() {
         populatePossibleInterests();
 
-        String[] interests = {"hiking", "amusementparks", "airsoft"};
+        String[] interests = {"hiking", "amusementparks", "airsoft", "archery", "carousels", "boating", "carousels","amusement parks", "bungee jumping"};
         try {
-            updateInterest("addinterests");
+            updateInterest("removeinterests");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -145,7 +149,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
             public void onSuccessResponse(String result) {
                 try {
                     JSONArray response = new JSONArray(result);
-                    Log.i(TAG, response.toString());
                     for(int i = 0; i < response.length(); i++){
                         mUser.addUserInterest((String)response.get(i));
                     }
@@ -164,10 +167,10 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
             public void onSuccessResponse(String result) {
                 try {
                     JSONArray response = new JSONArray(result);
-                    Log.i(TAG, response.toString());
                     for(int i = 0; i < response.length(); i++){
-                        mUser.addUserInterest(((JSONObject)response.get(i)).getString("alias"));
+                        mUser.addUserInterest(((JSONObject)response.get(i)).getString("name"));
                     }
+                    getInterests();
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -200,13 +203,30 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if(!searchView.isIconified()){
+                    searchView.setIconified(true);
+                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                final ArrayList<Interest> newInterests = new ArrayList<>();
+                newInterests.addAll(query(newText));
+                recyclerViewAdapter.setFilter(newInterests);
+                return true;
             }
         });
+
+    }
+    public ArrayList<Interest> query(String query){
+        final ArrayList<Interest> newInterests = new ArrayList<>();
+        for (Interest i : mUser.getUserInterests()){
+            if(i.getTag().toLowerCase().startsWith(query.toLowerCase())){
+                newInterests.add(i);
+            }
+        }
+        return newInterests;
+
     }
 }

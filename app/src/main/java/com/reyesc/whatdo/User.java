@@ -41,6 +41,10 @@ public class User implements Serializable {
         return user_instance;
     }
 
+    public static User getInstance(){
+        return user_instance;
+    }
+
     public void clear() {
         user_instance = null;
     }
@@ -67,7 +71,7 @@ public class User implements Serializable {
 
     public void addUserInterest(String i) {
         for (Interest interest : this.interests) {
-            if (i.equals(interest.getTag())) {
+            if (i.toLowerCase().equals(interest.getTag().toLowerCase())) {
                 interest.select();
                 return;
             }
@@ -77,8 +81,9 @@ public class User implements Serializable {
 
     public void removeUserInterest(String i) {
         for (Interest interest : this.interests) {
-            if (interest.getTag().equals(i)) {
+            if (interest.getTag().toLowerCase().equals(i.toLowerCase())) {
                 interest.deselect();
+                int a = 0;
             }
         }
     }

@@ -45,6 +45,7 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
         });
     }
 
+
     public int getItemCount() {
         return mFriends.size();
     }

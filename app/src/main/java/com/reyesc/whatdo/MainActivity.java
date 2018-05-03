@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -185,6 +186,10 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
 
     public void setPopupActivity(PopupActivity popupActivity) {
         this.popupActivity = popupActivity;
+    }
+
+    public void launchActivity(Intent intent){
+        startActivity(intent);
     }
 
     public void toasting(String string){

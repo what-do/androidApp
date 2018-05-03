@@ -1,14 +1,60 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_friends"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reyesc.whatdo.FragmentProfile">
+    android:layout_marginHorizontal="20dp"
+    android:orientation="vertical"
+    tools:context="com.reyesc.whatdo.FragmentFriends">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:text="Friends" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Groups" />
+    </LinearLayout>
+
+
+
+    <android.support.v7.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"></android.support.v7.widget.SearchView>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_friends" />
+        android:layout_height="30dp"
+        android:text="Requests"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/requestRecyclerView"></android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Friends"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/friendRecyclerView"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

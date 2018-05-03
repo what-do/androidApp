@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/requestLayout">
+
+    <TextView
+        android:id="@+id/reqName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/declineReq"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        />
+
+    <Button
+        android:id="@+id/acceptReq"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/declineReq"
+        />
+
+</RelativeLayout>

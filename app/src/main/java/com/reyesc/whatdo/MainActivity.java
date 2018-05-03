@@ -1,6 +1,5 @@
 package com.reyesc.whatdo;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,15 +9,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-
 import java.util.ArrayList;
 
-import static com.reyesc.whatdo.LoginActivity.ACCESS_TOKEN;
+import static com.reyesc.whatdo.LoginActivity.USER;
 
 public class MainActivity extends AppCompatActivity implements FragmentExtension.FragmentToActivityListener {
     private Bundle profileArgs;
-    private AccessToken mAccessToken;
     private ArrayList<Fragment> fragmentStack;
     private BottomNavigationView navigation;
     private PopupActivity popupActivity;
@@ -51,17 +47,7 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
         super.onCreate(savedInstanceState);
         fragmentStack = new ArrayList<>();
         setContentView(R.layout.activity_main);
-
-        Intent intent = getIntent();
-        profileArgs = intent.getExtras();
-        mAccessToken = (AccessToken)profileArgs.get(ACCESS_TOKEN);
-
-//        //TODO: remove this print
-//        System.out.println("success\nuser id: "
-//                + mAccessToken.getUserId().toString()
-//                + "\nuser permissions: "
-//                + mAccessToken.getPermissions().toString());
-
+        profileArgs = getIntent().getExtras();
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);

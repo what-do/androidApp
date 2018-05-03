@@ -37,10 +37,11 @@
         android:textStyle="bold"
         android:layout_gravity="center"/>
 
-    <android.support.v7.widget.SearchView
+    <SearchView
         android:layout_width="match_parent"
-        android:layout_height="30dp">
-    </android.support.v7.widget.SearchView>
+        android:layout_height="30dp"
+        android:id="@+id/search_bar">
+    </SearchView>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

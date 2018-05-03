@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import android.widget.SearchView;
 
 import static com.reyesc.whatdo.LoginActivity.IMG;
 import static com.reyesc.whatdo.LoginActivity.USER;
@@ -32,10 +33,11 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     View view;
     private ImageView imageView;
     private Uri imgUri;
+    private SearchView searchView;
 
-    ArrayList<String> interests =  new ArrayList<>();
-    ArrayList<String> possibleInterests =  new ArrayList<>();
-    ArrayList<Boolean> checkBoxes = new ArrayList<>();
+    //ArrayList<Interest> interests =  new ArrayList<>();
+    ArrayList<Interest> possibleInterests =  new ArrayList<>();
+    //ArrayList<Boolean> checkBoxes = new ArrayList<>();
 
 
     @Override
@@ -53,9 +55,13 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         updateButton.setOnClickListener(this);
 
         initRecyclerView();
-        initInterests();
         setProfile();
         createUser();
+
+        if (mUser.getUserInterests().isEmpty()){
+            populatePossibleInterests();
+        }
+        getInterests();
 
         return view;
     }
@@ -105,8 +111,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         InterestRecyclerViewAdapter recyclerViewAdapter =
                 new InterestRecyclerViewAdapter(
-                        possibleInterests,
-                        checkBoxes,
+                        mUser.getUserInterests(),
                         view.getContext());
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -117,16 +122,16 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
 
         String[] interests = {"hiking", "amusementparks", "airsoft"};
         try {
-            updateInterest(interests, "addinterests");
+            updateInterest("addinterests");
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateInterest(String[] interests, String method)
+    public void updateInterest(String method)
             throws JSONException {
         JSONArray jsonArray = new JSONArray();
-        for(String i : interests) {
+        for (String i : mUser.sendInterests()){
             jsonArray.put(i);
         }
         RequestHttp requestHttp = RequestHttp.getRequestHttp();
@@ -141,11 +146,9 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
                 try {
                     JSONArray response = new JSONArray(result);
                     Log.i(TAG, response.toString());
-                    interests.clear();
                     for(int i = 0; i < response.length(); i++){
-                        interests.add(i, (String)response.get(i));
+                        mUser.addUserInterest((String)response.get(i));
                     }
-                    System.out.println("final interests: " + interests.toString());
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -163,33 +166,13 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
                     JSONArray response = new JSONArray(result);
                     Log.i(TAG, response.toString());
                     for(int i = 0; i < response.length(); i++){
-                        if(possibleInterests.size() > i) {
-                            possibleInterests.set(i, ((JSONObject) response.get(i)).getString("alias"));
-                        }
-                        else {
-                            possibleInterests.add(((JSONObject) response.get(i)).getString("alias"));
-                        }
-                        if(interests.contains(possibleInterests.get(i))) {
-                            if (checkBoxes.size() > i) {
-                                checkBoxes.set(i, true);
-                            }
-                            else {
-                                checkBoxes.add(i, true);
-                            }
-                        }
-                        else{
-                            if (checkBoxes.size() > i) {
-                                checkBoxes.set(i, false);
-                            }
-                            else {
-                                checkBoxes.add(i, false);
-                            }
-                        }
+                        mUser.addUserInterest(((JSONObject)response.get(i)).getString("alias"));
                     }
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         });
     }
@@ -210,5 +193,20 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         protected void onPostExecute(Bitmap result) {
             imageView.setImageBitmap(result);
         }
+    }
+
+    private void searchInit() {
+        searchView = view.findViewById(R.id.search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 }

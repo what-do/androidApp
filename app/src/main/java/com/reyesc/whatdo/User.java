@@ -1,7 +1,9 @@
 package com.reyesc.whatdo;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Leigh on 4/30/2018.
@@ -18,9 +20,10 @@ public class User implements Serializable {
     private String id;
     private String email;
     private String username;
-    private ArrayList<String> interests;
+    private ArrayList<Interest> interests;
     private ArrayList<String> friends;
     private ArrayList<Group> groups;
+    private ArrayList<String> sentInterests;
 
     private User(String id, String email, String username) {
         this.id = id;
@@ -54,7 +57,7 @@ public class User implements Serializable {
         return this.email;
     }
 
-    public ArrayList<String> getUserInterests() {
+    public ArrayList<Interest> getUserInterests() {
         return this.interests;
     }
 
@@ -63,19 +66,19 @@ public class User implements Serializable {
     public ArrayList<Group> getUserGroups() {return this.groups; }
 
     public void addUserInterest(String i) {
-        for (String interest : this.interests) {
-            if (interest == i) {
+        for (Interest interest : this.interests) {
+            if (i.equals(interest.getTag())) {
+                interest.select();
                 return;
             }
         }
-        this.interests.add(i);
+        this.interests.add(new Interest(i));
     }
 
     public void removeUserInterest(String i) {
-        for (String interest : this.interests) {
-            if (interest == i) {
-                this.interests.remove(interest);
-                return;
+        for (Interest interest : this.interests) {
+            if (interest.getTag().equals(i)) {
+                interest.deselect();
             }
         }
     }
@@ -116,4 +119,17 @@ public class User implements Serializable {
             }
         }
     }
+
+    public ArrayList<String> sendInterests(){
+        sentInterests = new ArrayList<>();
+        for (Interest i : interests){
+            if (i.isInterested() == true) {
+                sentInterests.add(i.getTag());
+            }
+        }
+        return sentInterests;
+    }
+
+
+
 }

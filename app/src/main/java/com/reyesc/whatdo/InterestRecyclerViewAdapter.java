@@ -14,13 +14,11 @@ import java.util.ArrayList;
 public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestViewHolder> {
 
     private static final String TAG = "InterestRecyclerViewA";
-    private ArrayList<String> mInterests = new ArrayList<>();
-    private ArrayList<Boolean> mCheckBoxes = new ArrayList<>();
+    private ArrayList<Interest> mInterests = new ArrayList<>();
     private Context mContext;
 
-    public InterestRecyclerViewAdapter(ArrayList<String> interests, ArrayList<Boolean> checkBoxes, Context context) {
+    public InterestRecyclerViewAdapter(ArrayList<Interest> interests, Context context) {
         mInterests = interests;
-        mCheckBoxes = checkBoxes;
         mContext = context;
     }
 
@@ -36,14 +34,14 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
     public void onBindViewHolder(@NonNull InterestViewHolder viewHolder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        viewHolder.checkBox.setChecked(mCheckBoxes.get(position));
-        viewHolder.interestTag.setText(mInterests.get(position));
+        viewHolder.checkBox.setChecked(mInterests.get(position).isInterested());
+        viewHolder.interestTag.setText(mInterests.get(position).getTag());
 
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + mInterests.get(position));
-                Toast.makeText(mContext, mInterests.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mInterests.get(position).getTag(), Toast.LENGTH_SHORT).show();
             }
         });
     }

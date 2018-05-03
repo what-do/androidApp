@@ -42,7 +42,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="100dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="100dp"
+        android:id="@+id/requestRecyclerView"></android.support.v7.widget.RecyclerView>
 
     <TextView
         android:layout_width="match_parent"
@@ -55,7 +56,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/friendRecyclerView"></android.support.v7.widget.RecyclerView>
-
-
 
 </LinearLayout>

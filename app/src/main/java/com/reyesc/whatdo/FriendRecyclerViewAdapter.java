@@ -13,64 +13,40 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/**
- * Created by Michael on 4/17/18.
- */
+public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
-public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendRecyclerViewAdapter.FriendsViewHolder> {
-
-    private static final String TAG = "FriendRecyclerViewAdapt";
-
+    private static final String TAG = "FriendRecyclerViewAdap";
     private ArrayList<String> mFriends = new ArrayList<>();
     private Context mContext;
 
-
-
-    public FriendRecyclerViewAdapter(ArrayList<String> friends, Context context){
-        mFriends = friends;
+    public FriendRecyclerViewAdapter(ArrayList<String> friends, Context context) {
         mContext = context;
+        mFriends = friends;
     }
 
     @NonNull
     @Override
-    public FriendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friends, parent, false);
-        FriendsViewHolder holder = new FriendsViewHolder(view);
-        return holder;
+        FriendViewHolder viewHolder = new FriendViewHolder(view);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendsViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull FriendViewHolder viewHolder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
-        holder.friendName.setText(mFriends.get(position));
-
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.friendName.setText(mFriends.get(position));
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + mFriends.get(position));
-
                 Toast.makeText(mContext, mFriends.get(position), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    @Override
     public int getItemCount() {
         return mFriends.size();
     }
 
-    public class FriendsViewHolder extends RecyclerView.ViewHolder{
-
-        TextView friendName;
-
-        RelativeLayout parentLayout;
-
-        public FriendsViewHolder(View itemView) {
-            super(itemView);
-            friendName = itemView.findViewById(R.id.friendName);
-            parentLayout = itemView.findViewById(R.id.friendLayout);
-        }
-    }
 }

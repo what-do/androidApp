@@ -36,8 +36,11 @@ public class  FragmentFriends extends FragmentExtension {
         friends.add("andresito");
         friends.add("brianito");
         RecyclerView recyclerView = view.findViewById(R.id.friendRecyclerView);
-        FriendRecyclerViewAdapter fRecyclerViewAdapter = new FriendRecyclerViewAdapter(friends, view.getContext());
-        recyclerView.setAdapter(fRecyclerViewAdapter);
+        FriendRecyclerViewAdapter recyclerViewAdapter =
+                new FriendRecyclerViewAdapter(
+                        friends,
+                        view.getContext());
+        recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 

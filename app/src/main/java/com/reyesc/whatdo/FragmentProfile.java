@@ -101,8 +101,13 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
 
     public void initRecyclerView() {
         Log.d(TAG, "init Recycler View");
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(possibleInterests, checkBoxes, view.getContext());
+        InterestRecyclerViewAdapter recyclerViewAdapter =
+                new InterestRecyclerViewAdapter(
+                        possibleInterests,
+                        checkBoxes,
+                        view.getContext());
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }

@@ -8,6 +8,7 @@ public class FragmentExtension extends Fragment {
     public interface FragmentToActivityListener {
         void fromFeedToCollection(ActivityCard card);
         void fromCollectionToFeed(ActivityCard card);
+        void setPopupActivity(PopupActivity popupActivity);
         void toasting (String string);
     }
 }

@@ -34,7 +34,6 @@ public class ActivityImagesCardAdapter extends RecyclerView.Adapter<ActivityImag
 
     @Override
     public void onBindViewHolder(@NonNull ActivityImagesCardViewHolder holder, int position) {
-        holder.setIsRecyclable(true);
         holder.bindData(imagesList.get(position));
     }
 

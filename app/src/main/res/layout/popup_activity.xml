@@ -197,6 +197,8 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/container"
         android:layout_alignTop="@id/container"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/ic_close"
         android:contentDescription="close"/>
 </RelativeLayout>

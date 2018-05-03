@@ -24,9 +24,12 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     private CardView cardView;
     private ActivityCard activityCard;
     private PopupWindow popupWindow;
+    private FragmentExtension.FragmentToActivityListener fragmentToActivityListener;
 
-    public CardViewHolder(View itemView) {
+    public CardViewHolder(View itemView, FragmentExtension.FragmentToActivityListener fragmentToActivityListener) {
         super(itemView);
+
+        this.fragmentToActivityListener = fragmentToActivityListener;
 
         cardView = (CardView) itemView;
         frontView = itemView.findViewById(R.id.cardViewFront);
@@ -60,7 +63,7 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public void onClick(View v) {
         if(activityCard.showingFront){
             activityCard.showingFront = false;
-            PopupActivity popupActivity = new PopupActivity(cardView, activityCard);
+            PopupActivity popupActivity = new PopupActivity(cardView, activityCard, fragmentToActivityListener);
             popupActivity.show();
             //flipView(itemView.getContext(), frontView, backView,false);
         }else {

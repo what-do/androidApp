@@ -32,7 +32,6 @@ public class ActivityFriendsCardAdapter extends RecyclerView.Adapter<ActivityFri
 
     @Override
     public void onBindViewHolder(@NonNull ActivityFriendsCardViewHolder holder, int position) {
-        holder.setIsRecyclable(true);
         holder.bindData(friendsList.get(position));
     }
 

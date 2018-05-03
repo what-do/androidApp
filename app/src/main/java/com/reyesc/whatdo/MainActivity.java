@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
     private AccessToken mAccessToken;
     private ArrayList<Fragment> fragmentStack;
     private BottomNavigationView navigation;
+    private PopupActivity popupActivity;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -147,7 +148,11 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
 
     @Override
     public void onBackPressed() {
-        if (fragmentStack.size() > 1) {
+        if (popupActivity != null) {
+            popupActivity.dismiss();
+            popupActivity = null;
+        }
+        else if (fragmentStack.size() > 1) {
             Fragment currentFragment = fragmentStack.get(fragmentStack.size() - 1);
             Fragment previousFragment = fragmentStack.get(fragmentStack.size() - 2);
 
@@ -185,11 +190,15 @@ public class MainActivity extends AppCompatActivity implements FragmentExtension
         fragmentSaved.addToCollection(card);
     }
 
-    public void fromCollectionToFeed (ActivityCard card) {
+    public void fromCollectionToFeed(ActivityCard card) {
         FragmentSaved fragmentSaved = (FragmentSaved) getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.fragment_saved));
         fragmentSaved.removeFromCollection(card);
         FragmentDiscover fragmentDiscover = (FragmentDiscover) getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.fragment_discover));
         fragmentDiscover.addToFeed(card);
+    }
+
+    public void setPopupActivity(PopupActivity popupActivity) {
+        this.popupActivity = popupActivity;
     }
 
     public void toasting(String string){

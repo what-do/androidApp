@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,8 +21,8 @@ class ActivityFriendsCardViewHolder extends RecyclerView.ViewHolder implements V
         itemView.setOnClickListener(this);
     }
 
-    public void bindData(String string) {
-        this.string = string;
+    public void bindData(Bitmap image) {
+        this.imageView.setImageBitmap(image);
     }
 
     @Override

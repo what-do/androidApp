@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +12,11 @@ import java.util.List;
 
 public class ActivityFriendsCardAdapter extends RecyclerView.Adapter<ActivityFriendsCardViewHolder> {
     private RecyclerView recyclerView;
-    private List<String> friendsList;
+    private List<Bitmap> friendsList;
     private int totalLoaded;
     private boolean loading;
 
-    public ActivityFriendsCardAdapter(RecyclerView recyclerView, ArrayList<String> friendsList){
+    public ActivityFriendsCardAdapter(RecyclerView recyclerView, ArrayList<Bitmap> friendsList){
         this.recyclerView = recyclerView;
         this.friendsList = friendsList;
         totalLoaded = 0;
@@ -46,11 +47,7 @@ public class ActivityFriendsCardAdapter extends RecyclerView.Adapter<ActivityFri
     }
 
     private void loadFriends(){
-        for(int i = 0; i < 10; i++){
-            friendsList.add(String.valueOf(i));
-            totalLoaded++;
-            notifyItemInserted(friendsList.size());
-        }
+
         loading = false;
     }
 }

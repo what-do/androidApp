@@ -78,7 +78,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
 
     protected void restoreCard(ActivityCard card) {
         int position = 0;
-        while (position < cardList.size() && card.getId() > cardList.get(position).getId()) {
+        while (position < cardList.size() && card.getIdx() > cardList.get(position).getIdx()) {
             position++;
         }
 
@@ -96,7 +96,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof CardViewHolder) {
             if (direction == ItemTouchHelper.LEFT) {
-                String name = cardList.get(viewHolder.getAdapterPosition()).getTitle();
+                String name = cardList.get(viewHolder.getAdapterPosition()).getName();
 
                 final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
                 deletedItem.setSaved(false);

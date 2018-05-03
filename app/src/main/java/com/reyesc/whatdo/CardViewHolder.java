@@ -5,6 +5,9 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -16,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.InputStream;
+import java.net.URL;
 
 class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private View frontView, backView;
@@ -52,11 +58,13 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
             backView.setAlpha(1.0f);
             frontView.setAlpha(0.0f);
         }
-//        imageView.setImageDrawable(cardView.getContext().getDrawable(activityCard.getImage()));
-//        textViewDate.setText(activityCard.getDate());
-        textViewTitle.setText(activityCard.getTitle());
-//        textViewTags.setText(activityCard.getTags());
-//        textViewDescription.setText(activityCard.getDescription());
+
+        textViewDate.setText(activityCard.getDate());
+        textViewTitle.setText(activityCard.getName());
+        textViewTags.setText(activityCard.getTags());
+        //textViewDescription.setText(activityCard.getDescription());
+        textViewDescription.setText(activityCard.getAddress());
+        imageView.setImageBitmap(activityCard.getImage());
     }
 
     @Override

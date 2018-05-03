@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,11 +14,11 @@ import java.util.List;
 
 public class ActivityImagesCardAdapter extends RecyclerView.Adapter<ActivityImagesCardViewHolder> {
     private RecyclerView recyclerView;
-    private List<String> imagesList;
+    private List<Bitmap> imagesList;
     private int totalLoaded;
     private boolean loading;
 
-    public ActivityImagesCardAdapter(RecyclerView recyclerView, ArrayList<String> imagesList){
+    public ActivityImagesCardAdapter(RecyclerView recyclerView, ArrayList<Bitmap> imagesList){
         this.recyclerView = recyclerView;
         this.imagesList = imagesList;
         totalLoaded = 0;
@@ -48,11 +49,7 @@ public class ActivityImagesCardAdapter extends RecyclerView.Adapter<ActivityImag
     }
 
     private void loadImages(){
-        for(int i = 0; i < 10; i++){
-            imagesList.add(String.valueOf(i));
-            totalLoaded++;
-            notifyItemInserted(imagesList.size());
-        }
+
         loading = false;
     }
 }

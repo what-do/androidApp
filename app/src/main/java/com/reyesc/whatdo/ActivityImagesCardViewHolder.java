@@ -5,6 +5,7 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,8 +27,8 @@ class ActivityImagesCardViewHolder extends RecyclerView.ViewHolder implements Vi
         itemView.setOnClickListener(this);
     }
 
-    public void bindData(String string) {
-        this.string = string;
+    public void bindData(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
     }
 
     @Override

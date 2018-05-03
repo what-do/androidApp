@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +15,20 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implements CardTouchHelper.CardTouchHelperListener {
     private RecyclerView recyclerView;
     private List<ActivityCard> cardList;
     private int visibleThreshold = 3;
-    private int loadCount = 10;
+    private int loadCount = 20;
     private int totalLoaded;
     private boolean loading;
     private FragmentExtension.FragmentToActivityListener fragmentToActivityListener;
@@ -82,7 +89,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
 
     protected void restoreCard(ActivityCard card) {
         int position = 0;
-        while (position < cardList.size() && card.getId() > cardList.get(position).getId()) {
+        while (position < cardList.size() && card.getIdx() > cardList.get(position).getIdx()) {
             position++;
         }
 
@@ -98,7 +105,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof CardViewHolder) {
-            String name = cardList.get(viewHolder.getAdapterPosition()).getTitle();
+            String name = cardList.get(viewHolder.getAdapterPosition()).getName();
 
             final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
 
@@ -142,17 +149,46 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
     }
 
     private void loadMoreCards(){
-        for(int i = 0; i < loadCount; i++){
-            String title = "Title" + (totalLoaded);
-            boolean sponsored = false;
-            if (totalLoaded % 10 - 1 == 0) {
-                title = "(Sponsored) " + title;
-                sponsored = true;
+        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+        requestHttp.getRequest(recyclerView.getContext(), "users", "activities", User.getInstance().getUserId(), new RequestHttp.VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result) {
+                try {
+                    JSONArray response = new JSONArray(result);
+                    Log.i(TAG, response.toString());
+                    for(int i = 0; i < response.length(); i++){
+                        JSONObject activity = response.getJSONObject(i);
+                        String name = activity.getString("name");
+                        JSONArray tagsJSON = activity.getJSONArray("tags");
+                        String tags = null;
+                        for(int j = 0; j < tagsJSON.length(); j++) {
+                            if (tags == null) {
+                                tags = "#" + tagsJSON.getJSONObject(j).getString("title");
+                            } else {
+                                tags += " #" + tagsJSON.getJSONObject(j).getString("title");
+                            }
+                        }
+                        JSONArray addressJSON = activity.getJSONArray("address").getJSONObject(0).getJSONArray("display_address");
+                        String address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
+                        String id = activity.getString("_id");
+                        String image = activity.getString("image");
+                        String yelp = activity.getString("yelp");
+                        String description = activity.getString("description");
+                        boolean sponsored = false;
+                        if (totalLoaded == 0 || totalLoaded % 10 - 1 == 0) {
+                            name = "(Sponsored) " + name;
+                            sponsored = true;
+                        }
+                        cardList.add(new ActivityCard(totalLoaded, id, image,"Date\n31", name, tags, description, address, yelp, sponsored));
+                        totalLoaded++;
+                        notifyItemInserted(cardList.size());
+                    }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                loading = false;
             }
-            cardList.add(new ActivityCard((totalLoaded),0,"Date\n31", title, "Tags", "Description", sponsored));
-            totalLoaded++;
-            notifyItemInserted(cardList.size());
-        }
-        loading = false;
+        });
     }
 }

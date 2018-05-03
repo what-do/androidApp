@@ -37,10 +37,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private RecyclerView recyclerView;
     private InterestRecyclerViewAdapter recyclerViewAdapter;
 
-    //ArrayList<Interest> interests =  new ArrayList<>();
     ArrayList<Interest> possibleInterests =  new ArrayList<>();
-    //ArrayList<Boolean> checkBoxes = new ArrayList<>();
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -58,7 +55,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
 
         initRecyclerView();
         setProfile();
-        createUser();
 
         if (mUser.getUserInterests().isEmpty()){
             populatePossibleInterests();
@@ -86,16 +82,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         intent.putExtra("signout", true);
         startActivity(intent);
     }
-
-    //TODO: if getUser == null then create User
-    public void createUser() {
-        RequestHttp requestHttp = RequestHttp.getRequestHttp();
-        requestHttp.postRequest(view.getContext(), mUser.getUserId(), mUser.getUserEmail(), mUser.getUserName());
-    }
-
-    //TODO: what does get req return if no user
-    /*public void getUser() {
-    }*/
 
     public void setProfile() {
         TextView name = view.findViewById(R.id.name);
@@ -160,7 +146,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         });
     }
 
-    public void populatePossibleInterests(){
+    public void populatePossibleInterests() {
         RequestHttp requestHttp = RequestHttp.getRequestHttp();
         requestHttp.getRequest(view.getContext(), "tags", "", "", new RequestHttp.VolleyCallback() {
             @Override
@@ -192,7 +178,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
             }
             return img;
         }
-
         protected void onPostExecute(Bitmap result) {
             imageView.setImageBitmap(result);
         }

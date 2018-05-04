@@ -3,25 +3,27 @@ package com.reyesc.whatdo;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
     private static final String TAG = "FriendRecyclerViewAdap";
-    private ArrayList<String> mFriends = new ArrayList<>();
+    private ArrayList<Friend> mFriends = new ArrayList<>();
     private Context mContext;
+    private User mUser;
 
-    public FriendRecyclerViewAdapter(ArrayList<String> friends, Context context) {
+    public FriendRecyclerViewAdapter(ArrayList<Friend> friends, Context context) {
         mContext = context;
         mFriends = friends;
+        mUser = User.getInstance();
     }
 
     @NonNull
@@ -33,21 +35,49 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendViewHolder viewHolder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
-        viewHolder.friendName.setText(mFriends.get(position));
+    public void onBindViewHolder(@NonNull final FriendViewHolder viewHolder, final int position) {
+        Collections.sort(mFriends);
+        int blue = viewHolder.friendName.getResources().getColor(R.color.blue);
+        viewHolder.friendName.setText(mFriends.get(position).getFriendUserName());
+        if (mFriends.get(position).isReq()) {
+            viewHolder.friendName.setTextColor(blue);
+            //viewHolder.removeFriend.setVisibility(View.GONE);
+            viewHolder.acceptReq.setVisibility(View.VISIBLE);
+        }
+
+        viewHolder.removeFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONArray removedFriend = new JSONArray();
+                removedFriend.put(mFriends.get(position));
+
+                //TODO: test this
+                //viewHolder.friendName.setVisibility(View.GONE);
+                //viewHolder.removeFriend.setVisibility(View.GONE);
+
+                //RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                //TODO: need endpoint for removing friends
+                //requestHttp.putStringRequest(mContext, mUser.getUserId(), "removefriends", removedFriend);
+            }
+        });
+
+        viewHolder.acceptReq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + mFriends.get(position));
-                Toast.makeText(mContext, mFriends.get(position), Toast.LENGTH_SHORT).show();
+                //TODO: what does this do
+                Toast.makeText(mContext, mFriends.get(position).getFriendUserName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
     public int getItemCount() {
         return mFriends.size();
     }
-
 }

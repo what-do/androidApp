@@ -15,10 +15,6 @@ public class Interest implements Serializable {
         interested = false; //default
     }
 
-    public void setTag(String interest) {
-        this.tag = interest;
-    }
-
     public String getTag() {
         return this.tag;
     }

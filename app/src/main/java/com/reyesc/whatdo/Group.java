@@ -2,10 +2,6 @@ package com.reyesc.whatdo;
 
 import java.util.ArrayList;
 
-/**
- * Created by Leigh on 4/30/2018.
- */
-
 public class Group {
     private String groupName;
     private ArrayList<String> groupMembers;

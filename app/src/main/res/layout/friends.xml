@@ -7,17 +7,28 @@
 
     <TextView
         android:id="@+id/friendName"
+        android:textColor="@color/pretty_blue"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
         android:gravity="left" />
 
     <Button
         android:id="@+id/removeFriend"
-        android:drawableTop="@android:drawable/ic_menu_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/friendName"
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:drawableTop="@android:drawable/ic_menu_delete" />
+
+    <Button
+        android:id="@+id/acceptReq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@android:drawable/ic_menu_save"
+        android:layout_toLeftOf="@id/removeFriend"
+        android:visibility="gone"/>
 
 </RelativeLayout>

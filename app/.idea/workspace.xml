@@ -10,12 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23a34290-a87f-4187-ab2f-d24c9294f8fb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentDiscover.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentDiscover.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/Friend.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardCollectionAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardCollectionAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardFeedAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardFeedAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentFriends.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentFriends.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FriendRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FriendRecyclerViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FriendViewHolder.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FriendViewHolder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/Group.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/Group.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/Interest.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/Interest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/InterestRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/InterestRecyclerViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/LoginActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/RequestHttp.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/RequestHttp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_friends.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_friends.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/friends.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/friends.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +53,25 @@
       <file leaf-file-name="FragmentProfile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
+            <state relative-caret-position="-1982">
               <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <folding>
+                <marker date="1525450128000" expanded="false" signature="3931:4046" ph="(result) → {" />
+                <marker date="1525450128000" expanded="false" signature="4418:4433" ph="}" />
+                <marker date="1525450128000" expanded="false" signature="4619:4734" ph="(result) → {" />
+                <marker date="1525450128000" expanded="false" signature="5167:5182" ph="}" />
+                <marker date="1525450128000" expanded="false" signature="5702:5717" ph=" { " />
+                <marker date="1525450128000" expanded="false" signature="5750:5760" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewHolder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/ViewHolder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -65,7 +93,7 @@
       <file leaf-file-name="FragmentDiscover.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentDiscover.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
+            <state relative-caret-position="284">
               <caret line="44" column="73" lean-forward="false" selection-start-line="44" selection-start-column="73" selection-end-line="44" selection-end-column="73" />
               <folding />
             </state>
@@ -75,9 +103,22 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="-632">
+              <caret line="69" column="59" lean-forward="true" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
+              <folding>
+                <element signature="e#1086#1087#0" expanded="true" />
+                <element signature="e#1122#1123#0" expanded="true" />
+                <element signature="e#1149#1150#0" expanded="true" />
+                <element signature="e#1185#1186#0" expanded="true" />
+                <element signature="e#1220#1221#0" expanded="true" />
+                <element signature="e#1256#1257#0" expanded="true" />
+                <element signature="e#1438#1439#0" expanded="true" />
+                <element signature="e#1468#1469#0" expanded="true" />
+                <element signature="e#1504#1505#0" expanded="true" />
+                <element signature="e#1537#1538#0" expanded="true" />
+                <element signature="e#1590#1591#0" expanded="true" />
+                <element signature="e#1627#1628#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -97,19 +138,6 @@
       </file>
       <file leaf-file-name="activity_login.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_login.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="card_activity_friend.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/card_activity_friend.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
@@ -1895,11 +1923,11 @@
         <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/interests.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/friends.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentDiscover.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" />
       </list>
     </option>
   </component>
@@ -2098,7 +2126,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525449939095" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525450128896" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2146,7 +2174,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525449939095" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525450128896" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2329,7 +2357,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525449939095" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525450128898" />
       </method>
     </configuration>
     <list size="1">
@@ -2418,7 +2446,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="50" column="46" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
-          <folding />
+          <folding>
+            <marker date="1525450128000" expanded="false" signature="3931:4046" ph="(result) → {" />
+            <marker date="1525450128000" expanded="false" signature="4418:4433" ph="}" />
+            <marker date="1525450128000" expanded="false" signature="4619:4734" ph="(result) → {" />
+            <marker date="1525450128000" expanded="false" signature="5167:5182" ph="}" />
+            <marker date="1525450128000" expanded="false" signature="5702:5717" ph=" { " />
+            <marker date="1525450128000" expanded="false" signature="5750:5760" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2468,7 +2503,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1525401403000" expanded="true" signature="682:693" ph="..." />
+            <marker date="1525450011000" expanded="true" signature="1123:1124" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2507,12 +2542,7 @@
         <state relative-caret-position="525">
           <caret line="56" column="111" lean-forward="false" selection-start-line="56" selection-start-column="111" selection-end-line="56" selection-end-column="111" />
           <folding>
-            <element signature="method#InterestRecyclerViewAdapter#0;class#InterestRecyclerViewAdapter#0" expanded="false" />
-            <element signature="method#onCreateViewHolder#0;class#InterestRecyclerViewAdapter#0" expanded="false" />
-            <element signature="e#1493#2885#0" expanded="true" />
-            <element signature="e#2884#2885#0" expanded="true" />
-            <element signature="e#2941#3244#0" expanded="true" />
-            <element signature="e#3243#3244#0" expanded="true" />
+            <element signature="e#2851#2852#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2589,12 +2619,7 @@
         <state relative-caret-position="525">
           <caret line="56" column="111" lean-forward="false" selection-start-line="56" selection-start-column="111" selection-end-line="56" selection-end-column="111" />
           <folding>
-            <element signature="method#InterestRecyclerViewAdapter#0;class#InterestRecyclerViewAdapter#0" expanded="false" />
-            <element signature="method#onCreateViewHolder#0;class#InterestRecyclerViewAdapter#0" expanded="false" />
-            <element signature="e#1493#2885#0" expanded="true" />
-            <element signature="e#2884#2885#0" expanded="true" />
-            <element signature="e#2941#3244#0" expanded="true" />
-            <element signature="e#3243#3244#0" expanded="true" />
+            <element signature="e#2851#2852#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2603,10 +2628,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-          <folding>
-            <element signature="e#557#558#0" expanded="false" />
-            <element signature="e#595#596#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2655,8 +2677,8 @@
         <state relative-caret-position="275">
           <caret line="151" column="57" lean-forward="false" selection-start-line="151" selection-start-column="57" selection-end-line="151" selection-end-column="57" />
           <folding>
-            <marker date="1525401403000" expanded="false" signature="6147:6262" ph="(result) → {" />
-            <marker date="1525401403000" expanded="false" signature="8289:8304" ph="}" />
+            <marker date="1525450011000" expanded="false" signature="6975:7090" ph="(result) → {" />
+            <marker date="1525450011000" expanded="false" signature="9117:9132" ph="}" />
           </folding>
         </state>
       </provider>
@@ -2725,7 +2747,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1525401403000" expanded="true" signature="682:693" ph="..." />
+            <marker date="1525450011000" expanded="true" signature="1123:1124" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2825,14 +2847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2846,17 +2860,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentDiscover.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
+        <state relative-caret-position="284">
           <caret line="44" column="73" lean-forward="false" selection-start-line="44" selection-start-column="73" selection-end-line="44" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/ViewHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1982">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <marker date="1525450128000" expanded="false" signature="3931:4046" ph="(result) → {" />
+            <marker date="1525450128000" expanded="false" signature="4418:4433" ph="}" />
+            <marker date="1525450128000" expanded="false" signature="4619:4734" ph="(result) → {" />
+            <marker date="1525450128000" expanded="false" signature="5167:5182" ph="}" />
+            <marker date="1525450128000" expanded="false" signature="5702:5717" ph=" { " />
+            <marker date="1525450128000" expanded="false" signature="5750:5760" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="-632">
+          <caret line="69" column="59" lean-forward="true" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
+          <folding>
+            <element signature="e#1086#1087#0" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1149#1150#0" expanded="true" />
+            <element signature="e#1185#1186#0" expanded="true" />
+            <element signature="e#1220#1221#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+            <element signature="e#1438#1439#0" expanded="true" />
+            <element signature="e#1468#1469#0" expanded="true" />
+            <element signature="e#1504#1505#0" expanded="true" />
+            <element signature="e#1537#1538#0" expanded="true" />
+            <element signature="e#1590#1591#0" expanded="true" />
+            <element signature="e#1627#1628#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

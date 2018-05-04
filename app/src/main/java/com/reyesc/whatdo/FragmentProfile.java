@@ -37,7 +37,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private RecyclerView recyclerView;
     private InterestRecyclerViewAdapter recyclerViewAdapter;
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,14 +55,12 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         if (mUser.getUserInterests().isEmpty()){
             populatePossibleInterests();
         }
-
-
-
         return view;
     }
 
     public void onClick(View v) {
                 signOut();
+
     }
 
     private void signOut() {
@@ -91,7 +88,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         recyclerViewAdapter =
                 new InterestRecyclerViewAdapter(
                         mUser.getUserInterests(),
-                        view.getContext(), mUser);
+                        view.getContext());
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         searchInit();

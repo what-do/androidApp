@@ -3,9 +3,6 @@ package com.reyesc.whatdo;
 import android.support.annotation.NonNull;
 
 public class Friend implements Comparable<Friend> {
-    final int BEFORE = -1;
-    final int EQUAL = 0;
-    final int AFTER = 1;
 
     private String id;
     private String userName;
@@ -27,11 +24,11 @@ public class Friend implements Comparable<Friend> {
 
     @Override
     public int compareTo(@NonNull Friend friend) {
-        if (! this.getFriendUserName().equalsIgnoreCase(friend.getFriendUserName()) ) {
-            return this.getFriendUserName().compareTo(friend.getFriendUserName());
-        }
         if(! (this.isReq()==friend.isReq()) ) {
             return this.isReq().compareTo(friend.isReq());
+        }
+        if (! this.getFriendUserName().equalsIgnoreCase(friend.getFriendUserName()) ) {
+            return this.getFriendUserName().compareTo(friend.getFriendUserName());
         }
         return this.getFriendId().compareTo(friend.getFriendId());
     }

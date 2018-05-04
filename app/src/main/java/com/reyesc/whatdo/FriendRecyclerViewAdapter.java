@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
@@ -35,11 +36,12 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final FriendViewHolder viewHolder, final int position) {
+        Collections.sort(mFriends);
         int blue = viewHolder.friendName.getResources().getColor(R.color.blue);
         viewHolder.friendName.setText(mFriends.get(position).getFriendUserName());
         if (mFriends.get(position).isReq()) {
             viewHolder.friendName.setTextColor(blue);
-            viewHolder.removeFriend.setVisibility(View.GONE);
+            //viewHolder.removeFriend.setVisibility(View.GONE);
             viewHolder.acceptReq.setVisibility(View.VISIBLE);
         }
 

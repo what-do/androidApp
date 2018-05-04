@@ -80,6 +80,29 @@ public class RequestHttp {
         mRequestQueue.add(mStringRequest);
     }
 
+    public void getJointActivityRequest(Context context, String id, String friendId, final VolleyCallback callback) {
+        mRequestQueue = getmRequestQueue(context);
+
+        String getUrl = userUrl + "/jointactivites/" + id + "/friendId/" + friendId;
+
+        Log.i(TAG, "sending to: " + getUrl);
+
+        StringRequest mStringRequest = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "Response: "  + response.toString());
+                callback.onSuccessResponse(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "Error: " + error.toString());
+            }
+        });
+        mRequestQueue.add(mStringRequest);
+    }
+
+
     public void putStringRequest(Context context, String id, String task, final JSONArray jsonArray) {
         mRequestQueue = Volley.newRequestQueue(context);
         String requestUrl = userUrl + task + "/" + id;

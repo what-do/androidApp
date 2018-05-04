@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -22,6 +23,8 @@ import java.util.List;
 public class FragmentDiscover extends FragmentExtension {
     private View view;
     private ArrayList<ActivityCard> cardList;
+    private String selected = null;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,8 +45,23 @@ public class FragmentDiscover extends FragmentExtension {
             recyclerView.setAdapter(cardFeed);
 
             Spinner sp = view.findViewById(R.id.filter);
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, (String[]) User.getInstance().getUserFriends().toArray());
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, User.getInstance().getUserFriendsStringArray());
             sp.setAdapter(spinnerAdapter);
+
+            sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    selected = User.getInstance().getUserFriendsStringArray().get(position);
+                    System.out.println(selected);
+                    User.getInstance().setActivityFilter(selected);
+                    System.out.println(User.getInstance().getActivityFilter());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
 
         return view;

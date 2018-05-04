@@ -160,47 +160,90 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
         }
     }
 
-    private void loadMoreCards(){
-        RequestHttp requestHttp = RequestHttp.getRequestHttp();
-        requestHttp.getRequest(recyclerView.getContext(), "users", "activities", User.getInstance().getUserId(), new RequestHttp.VolleyCallback() {
-            @Override
-            public void onSuccessResponse(String result) {
-                try {
-                    JSONArray response = new JSONArray(result);
-                    Log.i(TAG, response.toString());
-                    for(int i = 0; i < response.length(); i++){
-                        JSONObject activity = response.getJSONObject(i);
-                        String name = activity.getString("name");
-                        JSONArray tagsJSON = activity.getJSONArray("tags");
-                        String tags = null;
-                        for(int j = 0; j < tagsJSON.length(); j++) {
-                            if (tags == null) {
-                                tags = "#" + tagsJSON.getJSONObject(j).getString("title");
-                            } else {
-                                tags += " #" + tagsJSON.getJSONObject(j).getString("title");
+    private void loadMoreCards() {
+        System.out.println(User.getInstance().getActivityFilter());
+        if (User.getInstance().getActivityFilter().equals("I'm by myself!")) {
+            RequestHttp requestHttp = RequestHttp.getRequestHttp();
+            requestHttp.getRequest(recyclerView.getContext(), "users", "activities", User.getInstance().getUserId(), new RequestHttp.VolleyCallback() {
+                @Override
+                public void onSuccessResponse(String result) {
+                    try {
+                        JSONArray response = new JSONArray(result);
+                        Log.i(TAG, response.toString());
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject activity = response.getJSONObject(i);
+                            String name = activity.getString("name");
+                            JSONArray tagsJSON = activity.getJSONArray("tags");
+                            String tags = null;
+                            for (int j = 0; j < tagsJSON.length(); j++) {
+                                if (tags == null) {
+                                    tags = "#" + tagsJSON.getJSONObject(j).getString("title");
+                                } else {
+                                    tags += " #" + tagsJSON.getJSONObject(j).getString("title");
+                                }
                             }
+                            JSONArray addressJSON = activity.getJSONArray("address").getJSONObject(0).getJSONArray("display_address");
+                            String address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
+                            String id = activity.getString("_id");
+                            String image = activity.getString("image");
+                            String yelp = activity.getString("yelp");
+                            String description = activity.getString("description");
+                            boolean sponsored = false;
+                            if (totalLoaded == 0 || totalLoaded % 10 - 1 == 0) {
+                                name = "(Sponsored) " + name;
+                                sponsored = true;
+                            }
+                            cardList.add(new ActivityCard(totalLoaded, id, image, "Date\n31", name, tags, description, address, yelp, sponsored));
+                            totalLoaded++;
                         }
-                        JSONArray addressJSON = activity.getJSONArray("address").getJSONObject(0).getJSONArray("display_address");
-                        String address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
-                        String id = activity.getString("_id");
-                        String image = activity.getString("image");
-                        String yelp = activity.getString("yelp");
-                        String description = activity.getString("description");
-                        boolean sponsored = false;
-                        if (totalLoaded == 0 || totalLoaded % 10 - 1 == 0) {
-                            name = "(Sponsored) " + name;
-                            sponsored = true;
-                        }
-                        cardList.add(new ActivityCard(totalLoaded, id, image,"Date\n31", name, tags, description, address, yelp, sponsored));
-                        totalLoaded++;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                    loading = false;
+                    notifyDataSetChanged();
                 }
-                catch (JSONException e) {
-                    e.printStackTrace();
+            });
+        } else {
+            RequestHttp requestHttp = RequestHttp.getRequestHttp();
+            requestHttp.getJointActivityRequest(recyclerView.getContext(), User.getInstance().getUserId(), User.getInstance().getActivityFilter(), new RequestHttp.VolleyCallback() {
+                @Override
+                public void onSuccessResponse(String result) {
+                    try {
+                        JSONArray response = new JSONArray(result);
+                        Log.i(TAG, response.toString());
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject activity = response.getJSONObject(i);
+                            String name = activity.getString("name");
+                            JSONArray tagsJSON = activity.getJSONArray("tags");
+                            String tags = null;
+                            for (int j = 0; j < tagsJSON.length(); j++) {
+                                if (tags == null) {
+                                    tags = "#" + tagsJSON.getJSONObject(j).getString("title");
+                                } else {
+                                    tags += " #" + tagsJSON.getJSONObject(j).getString("title");
+                                }
+                            }
+                            JSONArray addressJSON = activity.getJSONArray("address").getJSONObject(0).getJSONArray("display_address");
+                            String address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
+                            String id = activity.getString("_id");
+                            String image = activity.getString("image");
+                            String yelp = activity.getString("yelp");
+                            String description = activity.getString("description");
+                            boolean sponsored = false;
+                            if (totalLoaded == 0 || totalLoaded % 10 - 1 == 0) {
+                                name = "(Sponsored) " + name;
+                                sponsored = true;
+                            }
+                            cardList.add(new ActivityCard(totalLoaded, id, image, "Date\n31", name, tags, description, address, yelp, sponsored));
+                            totalLoaded++;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    loading = false;
+                    notifyDataSetChanged();
                 }
-                loading = false;
-                notifyDataSetChanged();
-            }
-        });
+            });
+        }
     }
 }

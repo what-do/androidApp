@@ -20,6 +20,7 @@ public class User implements Serializable {
     private ArrayList<Friend> friends;
     //private ArrayList<Group> groups;
     private ArrayList<String> sentInterests;
+    private String activityFilter = "I'm by myself!";
 
     private User(String id, String email, String username) {
         this.id = id;
@@ -66,9 +67,16 @@ public class User implements Serializable {
 
     public ArrayList<Friend> getUserFriends() { return this.friends; }
 
+    public ArrayList<String> getUserFriendsStringArray(){
 
-    public ArrayList<Group> getUserGroups() {return this.groups; }
+        ArrayList<String> friendUserNames = new ArrayList<>();
+        friendUserNames.add("I'm by myself!");
+        for (Friend f : friends){
+            friendUserNames.add(f.getFriendUserName());
 
+        }
+        return friendUserNames;
+    }
     public void addUserInterest(String i) {
         for (Interest interest : this.interests) {
             if (i.toLowerCase().equals(interest.getTag().toLowerCase())) {
@@ -104,6 +112,13 @@ public class User implements Serializable {
                 return;
             }
         }
+    }
+    public String getActivityFilter(){
+        return activityFilter;
+    }
+
+    public void setActivityFilter(String activityFilter) {
+        this.activityFilter = activityFilter;
     }
 
     /*public void addGroup (String groupName) {

@@ -52,20 +52,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-<<<<<<< HEAD
-        android:layout_height="240dp"
-        android:id="@+id/recyclerView">
+        android:layout_height="240dp">
     </android.support.v7.widget.RecyclerView>
 
 
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:layout_gravity="center_horizontal"/>
-=======
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
->>>>>>> a278bb5d1a345fe53be0a440e7febe954b8b793c
+
 </LinearLayout>

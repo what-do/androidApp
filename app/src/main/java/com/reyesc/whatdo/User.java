@@ -68,6 +68,7 @@ public class User implements Serializable {
 
     public ArrayList<String> getUserFriends() { return this.friends; }
 
+
     public ArrayList<Group> getUserGroups() {return this.groups; }
 
     public void addUserInterest(String i) {

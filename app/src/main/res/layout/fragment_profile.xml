@@ -56,3 +56,4 @@
             android:layout_height="wrap_content"
             android:text="Logout"
             android:layout_gravity="center_horizontal"/>
+</LinearLayout>

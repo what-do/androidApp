@@ -12,9 +12,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentDiscover extends FragmentExtension {
     private View view;
@@ -37,6 +40,10 @@ public class FragmentDiscover extends FragmentExtension {
             cardList = new ArrayList<>();
             CardFeedAdapter cardFeed = new CardFeedAdapter(recyclerView, cardList, fragmentToActivityListener);
             recyclerView.setAdapter(cardFeed);
+
+            Spinner sp = view.findViewById(R.id.filter);
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, (String[]) User.getInstance().getUserFriends().toArray());
+            sp.setAdapter(spinnerAdapter);
         }
 
         return view;

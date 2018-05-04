@@ -36,7 +36,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private SearchView searchView;
     private RecyclerView recyclerView;
     private InterestRecyclerViewAdapter recyclerViewAdapter;
-    
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

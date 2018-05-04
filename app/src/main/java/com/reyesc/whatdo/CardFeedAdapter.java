@@ -108,25 +108,37 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
             String name = cardList.get(viewHolder.getAdapterPosition()).getName();
 
             final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
+            final JSONArray swipedCard = new JSONArray();
+            swipedCard.put(deletedItem.getYelp());
+
+            removeCard(deletedItem);
 
             Snackbar snackbar;
             if (direction == ItemTouchHelper.LEFT) {
-                removeCard(deletedItem);
+                RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                requestHttp.putStringRequest(recyclerView.getContext(), User.getInstance().getUserId(),"removelike", swipedCard);
+
                 snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardFeedDiscover), name + " removed from list!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         restoreCard(deletedItem);
+                        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                        requestHttp.putStringRequest(recyclerView.getContext(), User.getInstance().getUserId(),"addlike", swipedCard);
                     }
                 });
                 snackbar.getView().setBackgroundColor(Color.parseColor("#C40233"));
             } else {
-                fragmentToActivityListener.fromFeedToCollection(deletedItem);
+                RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                requestHttp.putStringRequest(recyclerView.getContext(), User.getInstance().getUserId(),"addlike", swipedCard);
+
                 snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardFeedDiscover), name + " saved for later!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        fragmentToActivityListener.fromCollectionToFeed(deletedItem);
+                        restoreCard(deletedItem);
+                        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                        requestHttp.putStringRequest(recyclerView.getContext(), User.getInstance().getUserId(),"removelike", swipedCard);
                     }
                 });
                 snackbar.getView().setBackgroundColor(Color.parseColor("#009F6B"));

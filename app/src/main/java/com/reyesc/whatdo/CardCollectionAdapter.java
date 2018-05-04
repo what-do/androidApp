@@ -3,14 +3,22 @@ package com.reyesc.whatdo;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> implements CardTouchHelper.CardTouchHelperListener {
     private RecyclerView recyclerView;
@@ -40,6 +48,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
         new ItemTouchHelper(cardTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         loadMoreCards();
+        checkEmpty();
     }
 
     @NonNull
@@ -100,13 +109,20 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
 
                 final ActivityCard deletedItem = cardList.get(viewHolder.getAdapterPosition());
                 deletedItem.setSaved(false);
+                final JSONArray swipedCard = new JSONArray();
+                swipedCard.put(deletedItem.getYelp());
+                removeCard(deletedItem);
 
-                fragmentToActivityListener.fromCollectionToFeed(deletedItem);
+                RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                requestHttp.putStringRequest(recyclerView.getContext(), User.getInstance().getUserId(),"removelike", swipedCard);
+
                 Snackbar snackbar = Snackbar.make(recyclerView.findViewById(R.id.cardCollectionSaved), name + " removed from list!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        fragmentToActivityListener.fromFeedToCollection(deletedItem);
+                        restoreCard(deletedItem);
+                        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                        requestHttp.putStringRequest(recyclerView.getContext(), User.getInstance().getUserId(),"addlike", swipedCard);
                     }
                 });
                 snackbar.getView().setBackgroundColor(Color.parseColor("#C40233"));
@@ -117,21 +133,54 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
     }
 
     private void loadCardCollection() {
-//        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//        int totalItemCount = layoutManager.getItemCount();
-//        int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-//        if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-//            // End has been reached, do something
-//            fragmentToActivityListener.toasting("More cards loaded");
-//            loading = true;
-//            loadMoreCards();
-//        }
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        int totalItemCount = layoutManager.getItemCount();
+        int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+        if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+            // End has been reached, do something
+            fragmentToActivityListener.toasting("More cards loaded");
+            loading = true;
+            loadMoreCards();
+        }
     }
 
-    private void loadMoreCards(){
-        // load more form server
-        this.notifyItemInserted(cardList.size());
-        loading = false;
+    public void loadMoreCards(){
+        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+        requestHttp.getRequest(recyclerView.getContext(), "users", "likes", User.getInstance().getUserId(), new RequestHttp.VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result) {
+                try {
+                    JSONArray response = new JSONArray(result);
+                    Log.i(TAG, response.toString());
+                    for(int i = 0; i < response.length(); i++){
+                        JSONObject activity = response.getJSONObject(i);
+                        String name = activity.getString("name");
+                        JSONArray tagsJSON = activity.getJSONArray("tags");
+                        String tags = null;
+                        for(int j = 0; j < tagsJSON.length(); j++) {
+                            if (tags == null) {
+                                tags = "#" + tagsJSON.getJSONObject(j).getString("title");
+                            } else {
+                                tags += " #" + tagsJSON.getJSONObject(j).getString("title");
+                            }
+                        }
+                        JSONArray addressJSON = activity.getJSONArray("address").getJSONObject(0).getJSONArray("display_address");
+                        String address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
+                        String id = activity.getString("_id");
+                        String image = activity.getString("image");
+                        String yelp = activity.getString("yelp");
+                        String description = activity.getString("description");
+                        cardList.add(new ActivityCard(totalLoaded, id, image,"Date\n31", name, tags, description, address, yelp, false));
+                        totalLoaded++;
+                    }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                loading = false;
+                notifyDataSetChanged();
+            }
+        });
         checkEmpty();
     }
 

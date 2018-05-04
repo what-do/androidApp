@@ -6,22 +6,15 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.io.InputStream;
-import java.net.URL;
 
 class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private View frontView, backView;
@@ -36,15 +29,18 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         super(itemView);
 
         this.fragmentToActivityListener = fragmentToActivityListener;
-
         cardView = (CardView) itemView;
         frontView = itemView.findViewById(R.id.cardViewFront);
         backView = itemView.findViewById(R.id.cardViewBack);
         imageView = itemView.findViewById(R.id.imageViewFront);
         textViewDate = itemView.findViewById(R.id.textViewDateFront);
+        textViewDate.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
         textViewTitle = itemView.findViewById(R.id.textViewTitleFront);
+        textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
         textViewTags = itemView.findViewById(R.id.textViewTagsFront);
+        textViewTags.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         textViewDescription = itemView.findViewById(R.id.textViewDescriptionFront);
+        textViewDescription.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
         itemView.setOnClickListener(this);
     }
@@ -64,7 +60,7 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         textViewTags.setText(activityCard.getTags());
         //textViewDescription.setText(activityCard.getDescription());
         textViewDescription.setText(activityCard.getAddress());
-        imageView.setImageBitmap(activityCard.getImage());
+        cropBitmap();
     }
 
     @Override
@@ -129,5 +125,30 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
     public TextView getTextViewDescription() {
         return textViewDescription;
+    }
+
+    public void cropBitmap() {
+        DisplayMetrics displayMetrics = cardView.getContext().getResources().getDisplayMetrics();
+        Float ratioWH = ((displayMetrics.widthPixels / displayMetrics.density) - 20) / 320;
+        Float ratioHW = 320 / ((displayMetrics.widthPixels / displayMetrics.density) - 20);
+        Bitmap image = activityCard.getImage();
+        if (image != null) {
+            int height = image.getHeight();
+            int width = image.getWidth();
+            if (height > width) {
+                int startY = height / 2 - width / 2;
+                height = Math.round(width / ratioWH);
+                startY = startY + height > image.getHeight() ? image.getHeight() - height : startY;
+                startY = startY < 0 ? 0 : startY;
+                image = Bitmap.createBitmap(image, 0, startY, width, height);
+            } else if (width > height){
+                int startX = width / 2 - height / 2;
+                width = Math.round(height / ratioHW);
+                startX = startX + width > image.getWidth() ? image.getWidth() - width : startX;
+                startX = startX < 0 ? 0 : startX;
+                image = Bitmap.createBitmap(image, startX, 0, width, height);
+            }
+            imageView.setImageBitmap(image);
+        }
     }
 }

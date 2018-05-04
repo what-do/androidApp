@@ -10,13 +10,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23a34290-a87f-4187-ab2f-d24c9294f8fb" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/debug.keystore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/font/whatdo.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/modules.xml" afterPath="$PROJECT_DIR$/../.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/ActivityCard.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/ActivityCard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardCollectionAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardCollectionAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardFeedAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardFeedAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardViewHolder.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardViewHolder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentFriends.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentFriends.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/LoginActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/PopupActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/PopupActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/card_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/card_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_friends.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_friends.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/interests.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/interests.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/friends.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/friends.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/popup_activity.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/popup_activity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,6 +54,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="FragmentProfile.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="38" column="4" lean-forward="false" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="interests.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/interests.xml">
           <provider editor-type-id="android-designer2">
@@ -53,32 +77,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FragmentExtension.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentExtension.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentDiscover.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentDiscover.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CardViewHolder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardViewHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="25" column="6" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
-              <folding />
+            <state relative-caret-position="180">
+              <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+              <folding>
+                <element signature="e#6140#6141#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,14 +95,27 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="51" column="11" lean-forward="false" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="11" />
+            <state relative-caret-position="332">
+              <caret line="57" column="56" lean-forward="false" selection-start-line="57" selection-start-column="56" selection-end-line="57" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="friends.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friends.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/friends.xml">
           <provider editor-type-id="android-designer2">
             <state />
@@ -104,7 +123,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1525401403000" expanded="true" signature="682:693" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -150,7 +171,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="275">
               <caret line="151" column="57" lean-forward="false" selection-start-line="151" selection-start-column="57" selection-end-line="151" selection-end-column="57" />
-              <folding />
+              <folding>
+                <marker date="1525401403000" expanded="false" signature="6147:6262" ph="(result) → {" />
+                <marker date="1525401403000" expanded="false" signature="8289:8304" ph="}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1889,11 +1913,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/InterestRecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/interests.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/friends.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java" />
       </list>
     </option>
   </component>
@@ -1951,6 +1976,38 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="whatdo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2056,7 +2113,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401229876" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401482052" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2104,7 +2161,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401229877" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401482053" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2266,7 +2323,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401229878" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401482053" />
       </method>
     </configuration>
     <list size="1">
@@ -2355,12 +2412,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="50" column="46" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
-          <folding>
-            <element signature="e#1949#1950#0" expanded="false" />
-            <element signature="e#1982#1983#0" expanded="false" />
-            <element signature="method#signOut#0;class#FragmentProfile#0" expanded="false" />
-            <element signature="method#createUser#0;class#FragmentProfile#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2409,7 +2461,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1525401403000" expanded="true" signature="682:693" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2458,17 +2512,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/RecyclerViewAdapter.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2493,19 +2536,6 @@
         <state relative-caret-position="60">
           <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="50" column="46" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
-          <folding>
-            <element signature="e#1949#1950#0" expanded="false" />
-            <element signature="e#1982#1983#0" expanded="false" />
-            <element signature="method#signOut#0;class#FragmentProfile#0" expanded="false" />
-            <element signature="method#createUser#0;class#FragmentProfile#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2653,9 +2683,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/CardViewHolder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="25" column="6" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="180">
+          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <folding>
+            <element signature="e#6140#6141#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2671,7 +2703,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="151" column="57" lean-forward="false" selection-start-line="151" selection-start-column="57" selection-end-line="151" selection-end-column="57" />
-          <folding />
+          <folding>
+            <marker date="1525401403000" expanded="false" signature="6147:6262" ph="(result) → {" />
+            <marker date="1525401403000" expanded="false" signature="8289:8304" ph="}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2697,17 +2732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="51" column="11" lean-forward="false" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/interests.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2726,6 +2750,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1525401403000" expanded="true" signature="682:693" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="57" column="56" lean-forward="false" selection-start-line="57" selection-start-column="56" selection-end-line="57" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/reyesc/whatdo/FragmentProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="38" column="4" lean-forward="false" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
           <folding />
         </state>
       </provider>

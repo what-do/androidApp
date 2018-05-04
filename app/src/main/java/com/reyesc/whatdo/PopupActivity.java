@@ -89,7 +89,7 @@ public class PopupActivity {
         ((AppCompatImageButton)popup.findViewById(R.id.buttonMaps)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.google.com/maps/search/" + (activityCard.getName() + activityCard.getAddress()).replaceAll(" ", "+").replaceAll("\n", "+")); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse("https://www.google.com/maps/search/" + (activityCard.getName().replaceAll("(Sponsored) ", "") + activityCard.getAddress()).replaceAll(" ", "+").replaceAll("\n", "+")); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 fragmentToActivityListener1.launchActivity(intent);
             }

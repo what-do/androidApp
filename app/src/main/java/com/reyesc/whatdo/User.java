@@ -4,11 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-/**
- * Created by Leigh on 4/30/2018.
- */
-
 /**
  * Singleton User class
  */
@@ -20,6 +15,7 @@ public class User implements Serializable {
     private String id;
     private String email;
     private String username;
+    private String chosenName;
     private ArrayList<Interest> interests;
     private ArrayList<String> friends;
     private ArrayList<Group> groups;
@@ -29,6 +25,7 @@ public class User implements Serializable {
         this.id = id;
         this.email = email;
         this.username = username;
+        this.chosenName = null;
         this.interests = new ArrayList<>();
         this.friends = new ArrayList<>();
         this.groups = new ArrayList<>();
@@ -41,7 +38,7 @@ public class User implements Serializable {
         return user_instance;
     }
 
-    public static User getInstance(){
+    public static User getInstance() {
         return user_instance;
     }
 
@@ -52,6 +49,10 @@ public class User implements Serializable {
     public String getUserName() {
         return this.username;
     }
+
+    public String getChosenName() { return this.chosenName;}
+
+    public void setChosenName(String chosenName) { this.chosenName = chosenName;}
 
     public String getUserId() {
         return this.id;
@@ -134,7 +135,4 @@ public class User implements Serializable {
         }
         return sentInterests;
     }
-
-
-
 }

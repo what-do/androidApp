@@ -1,5 +1,6 @@
 package com.reyesc.whatdo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.concurrent.Executor;
+import java.util.zip.Inflater;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private SignInButton mSignInButton;
     private TextView userPrompt;
+    private EditText userName;
 
     private Bundle args;
     private Boolean signOut;
@@ -38,7 +42,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         args = getIntent().getExtras();
-
         if (args != null) {
             signOut = args.getBoolean("signout");
         } else {
@@ -61,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         userPrompt = findViewById(R.id.user_prompt);
+        userName = findViewById(R.id.enter_name);
         mSignInButton = findViewById(R.id.login_button);
         mSignInButton.setOnClickListener(this);
     }
@@ -97,7 +101,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String id = account.getId();
         String email = account.getEmail();
         String username = account.getDisplayName();
-        return User.getInstance(id, email, username);
+        User mUser = User.getInstance(id, email, username);
+        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+        requestHttp.postRequest(this, mUser.getUserId(), mUser.getUserEmail(), mUser.getUserName());
+        //TODO: get request for chosen user name
+        if (mUser.getChosenName() == null) {
+            userPrompt.setText("Choose a user name: ");
+            userPrompt.setVisibility(View.VISIBLE);
+            userName.setVisibility(View.VISIBLE);
+            String chosenName = userName.getText().toString();
+            mUser.setChosenName(chosenName);
+        }
+        return mUser;
     }
 
     private void handleSignInResult (Task<GoogleSignInAccount> completedTask) {
@@ -106,6 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             updateUI(account);
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            userPrompt.setText("Login Failed: Try Again");
             userPrompt.setVisibility(View.VISIBLE);
         }
     }

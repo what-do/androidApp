@@ -37,8 +37,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private RecyclerView recyclerView;
     private InterestRecyclerViewAdapter recyclerViewAdapter;
 
-    ArrayList<Interest> possibleInterests =  new ArrayList<>();
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,10 +46,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         imgUri = getArguments().getParcelable(IMG);
 
         Button logoutButton = view.findViewById(R.id.logout_button);
-        Button updateButton = view.findViewById(R.id.update_button);
-
         logoutButton.setOnClickListener(this);
-        updateButton.setOnClickListener(this);
 
         initRecyclerView();
         setProfile();
@@ -59,9 +54,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         if (mUser.getUserInterests().isEmpty()){
             populatePossibleInterests();
         }
-
-
-
         return view;
     }
 
@@ -69,9 +61,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         switch(v.getId()) {
             case R.id.logout_button:
                 signOut();
-                break;
-            case R.id.update_button:
-                getInterests();
                 break;
         }
     }
@@ -101,7 +90,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         recyclerViewAdapter =
                 new InterestRecyclerViewAdapter(
                         mUser.getUserInterests(),
-                        view.getContext(), mUser);
+                        view.getContext());
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         searchInit();

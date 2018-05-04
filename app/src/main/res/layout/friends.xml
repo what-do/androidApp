@@ -7,9 +7,12 @@
 
     <TextView
         android:id="@+id/friendName"
+        android:textColor="@color/pretty_blue"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
         android:gravity="left" />
 
     <Button
@@ -19,5 +22,13 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/friendName"
         />
+
+    <Button
+        android:id="@+id/acceptReq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@android:drawable/ic_menu_save"
+        android:layout_toEndOf="@id/removeFriend"
+        android:visibility="gone"/>
 
 </RelativeLayout>

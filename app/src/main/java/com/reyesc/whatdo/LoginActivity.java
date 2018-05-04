@@ -1,6 +1,5 @@
 package com.reyesc.whatdo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -19,9 +18,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import java.util.concurrent.Executor;
-import java.util.zip.Inflater;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
@@ -102,16 +98,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = account.getEmail();
         String username = account.getDisplayName();
         User mUser = User.getInstance(id, email, username);
+        //create user in db
         RequestHttp requestHttp = RequestHttp.getRequestHttp();
         requestHttp.postRequest(this, mUser.getUserId(), mUser.getUserEmail(), mUser.getUserName());
         //TODO: get request for chosen user name
-        if (mUser.getChosenName() == null) {
+        //TODO: get request for friends
+        /*if (mUser.getChosenName() == null) {
             userPrompt.setText("Choose a user name: ");
             userPrompt.setVisibility(View.VISIBLE);
             userName.setVisibility(View.VISIBLE);
             String chosenName = userName.getText().toString();
             mUser.setChosenName(chosenName);
-        }
+        }*/
         return mUser;
     }
 

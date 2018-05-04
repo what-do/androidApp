@@ -19,14 +19,11 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
     private ArrayList<Interest> mInterests = new ArrayList<>();
     private Context mContext;
     private User mUser;
-    private View mView;
 
-    public InterestRecyclerViewAdapter(ArrayList<Interest> interests, Context context, User user) {
+    public InterestRecyclerViewAdapter(ArrayList<Interest> interests, Context context) {
         mInterests = interests;
         mContext = context;
-        mUser = user;
-
-
+        mUser = User.getInstance();
     }
 
     @NonNull
@@ -69,7 +66,6 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
             }
         });
 
-
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,9 +73,6 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
                 Toast.makeText(mContext, mInterests.get(position).getTag(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     public void setFilter(ArrayList<Interest> filter){

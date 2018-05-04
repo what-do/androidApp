@@ -15,20 +15,18 @@ public class User implements Serializable {
     private String id;
     private String email;
     private String username;
-    private String chosenName;
+    //private String chosenName;
     private ArrayList<Interest> interests;
-    private ArrayList<String> friends;
-    private ArrayList<Group> groups;
+    private ArrayList<Friend> friends;
+    //private ArrayList<Group> groups;
     private ArrayList<String> sentInterests;
 
     private User(String id, String email, String username) {
         this.id = id;
         this.email = email;
         this.username = username;
-        this.chosenName = null;
         this.interests = new ArrayList<>();
         this.friends = new ArrayList<>();
-        this.groups = new ArrayList<>();
     }
 
     public static User getInstance(String id, String email, String username) {
@@ -50,9 +48,9 @@ public class User implements Serializable {
         return this.username;
     }
 
-    public String getChosenName() { return this.chosenName;}
+    //public String getChosenName() { return this.chosenName;}
 
-    public void setChosenName(String chosenName) { this.chosenName = chosenName;}
+    //public void setChosenName(String chosenName) { this.chosenName = chosenName;}
 
     public String getUserId() {
         return this.id;
@@ -66,9 +64,9 @@ public class User implements Serializable {
         return this.interests;
     }
 
-    public ArrayList<String> getUserFriends() { return this.friends; }
+    public ArrayList<Friend> getUserFriends() { return this.friends; }
 
-    public ArrayList<Group> getUserGroups() {return this.groups; }
+    //public ArrayList<Group> getUserGroups() {return this.groups; }
 
     public void addUserInterest(String i) {
         for (Interest interest : this.interests) {
@@ -89,25 +87,25 @@ public class User implements Serializable {
         }
     }
 
-    public void addFriend (String userName) {
-        for (String friend : this.friends) {
-            if (friend == userName) {
+    public void addFriend (Friend friend) {
+        for (Friend f : this.friends) {
+            if (f.getFriendId() == friend.getFriendId()) {
                 return;
             }
         }
-        this.friends.add(userName);
+        this.friends.add(friend);
     }
 
-    public void removeFriend (String userName) {
-        for (String friend : this.friends) {
-            if (friend == userName) {
+    public void removeFriend (String id) {
+        for (Friend friend : this.friends) {
+            if (friend.getFriendId() == id) {
                 this.friends.remove(friend);
                 return;
             }
         }
     }
 
-    public void addGroup (String groupName) {
+    /*public void addGroup (String groupName) {
         for (Group group : this.groups) {
             if (group.getGroupName() == groupName) {
                 return;
@@ -124,7 +122,7 @@ public class User implements Serializable {
                 return;
             }
         }
-    }
+    }*/
 
     public ArrayList<String> sendInterests(){
         sentInterests = new ArrayList<>();

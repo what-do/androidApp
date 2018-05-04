@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private SignInButton mSignInButton;
     private TextView userPrompt;
-    private EditText userName;
 
     private Bundle args;
     private Boolean signOut;
@@ -60,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         userPrompt = findViewById(R.id.user_prompt);
-        userName = findViewById(R.id.enter_name);
         mSignInButton = findViewById(R.id.login_button);
         mSignInButton.setOnClickListener(this);
     }
@@ -96,20 +94,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         String id = account.getId();
         String email = account.getEmail();
-        String username = account.getDisplayName();
-        User mUser = User.getInstance(id, email, username);
-        //create user in db
-        RequestHttp requestHttp = RequestHttp.getRequestHttp();
-        requestHttp.postRequest(this, mUser.getUserId(), mUser.getUserEmail(), mUser.getUserName());
-        //TODO: get request for chosen user name
-        //TODO: get request for friends
-        /*if (mUser.getChosenName() == null) {
-            userPrompt.setText("Choose a user name: ");
-            userPrompt.setVisibility(View.VISIBLE);
-            userName.setVisibility(View.VISIBLE);
-            String chosenName = userName.getText().toString();
-            mUser.setChosenName(chosenName);
-        }*/
+        String username = "";
+        String displayname = account.getDisplayName();
+        User mUser = User.getInstance(id, email, username, displayname);
         return mUser;
     }
 

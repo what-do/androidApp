@@ -44,7 +44,7 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
             @Override
             public void onClick(View v) {
                 JSONArray changedInterest = new JSONArray();
-                if (viewHolder.checkBox.isChecked()){
+                if (viewHolder.checkBox.isChecked()) {
                     mInterests.get(position).select();
                     String addedInterest = mInterests.get(position).getTag();
                     System.out.println("New interest: " + mInterests.get(position).getTag());
@@ -53,7 +53,7 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
                     changedInterest.put(addedInterest.toLowerCase());
                     requestHttp.putStringRequest(mContext, mUser.getUserId(), "addinterests", changedInterest);
                 }
-                else{
+                else {
                     String removedInterest = mInterests.get(position).getTag();
                     mInterests.get(position).deselect();
                     System.out.println("Old interest: " + removedInterest);
@@ -61,7 +61,6 @@ public class InterestRecyclerViewAdapter extends RecyclerView.Adapter<InterestVi
                     RequestHttp requestHttp = RequestHttp.getRequestHttp();
                     changedInterest.put(removedInterest.toLowerCase());
                     requestHttp.putStringRequest(mContext, mUser.getUserId(), "removeinterests", changedInterest);
-
                 }
             }
         });

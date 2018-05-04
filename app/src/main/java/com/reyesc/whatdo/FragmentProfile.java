@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +38,10 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private SearchView searchView;
     private RecyclerView recyclerView;
     private InterestRecyclerViewAdapter recyclerViewAdapter;
+    private LinearLayout profileLayout;
+    private EditText editText;
+    private Button submitButton;
+    private TextView username;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -46,22 +52,25 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         imgUri = getArguments().getParcelable(IMG);
 
         Button logoutButton = view.findViewById(R.id.logout_button);
-
         logoutButton.setOnClickListener(this);
 
         initRecyclerView();
-        setProfile();
+
 
         if (mUser.getUserInterests().isEmpty()){
             populatePossibleInterests();
         }
+        username = view.findViewById(R.id.username);
+        editText = view.findViewById(R.id.editText);
+        submitButton = view.findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(this);
+
+        profileLayout = view.findViewById(R.id.profileLayout);
+        setProfile();
         return view;
     }
 
-    public void onClick(View v) {
-                signOut();
 
-    }
 
     private void signOut() {
         mUser.clear();
@@ -71,8 +80,36 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     }
 
     public void setProfile() {
-        TextView name = view.findViewById(R.id.name);
-        name.setText(mUser.getUserName());
+        TextView displayname = view.findViewById(R.id.displayname);
+        displayname.setText(mUser.getDisplayName());
+        RequestHttp requestHttp = RequestHttp.getRequestHttp();
+        requestHttp.getRequest(view.getContext(), "users", "", mUser.getUserId(), new RequestHttp.VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result) {
+                try {
+                    JSONObject response = new JSONObject(result);
+                    String username = response.getString("username");
+                    Log.i(TAG, response.toString());
+                    Log.i(TAG, "getting user");
+                    Log.i(TAG, "username");
+                    Log.i(TAG, username);
+                    mUser.setUserName(username);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        if (mUser.getUserName() == "") {
+            username.setVisibility(View.GONE);
+            profileLayout.setVisibility(View.VISIBLE);
+        } else {
+            username.setVisibility(View.VISIBLE);
+            username.setText(mUser.getUserName());
+            profileLayout.setVisibility(View.GONE);
+            requestHttp.postRequest(view.getContext(), mUser.getUserId(), mUser.getUserEmail(), mUser.getUserName(), mUser.getDisplayName());
+            Log.i(TAG, "created new user");
+        }
         try {
             imageView = view.findViewById(R.id.img);
             new LoadProfileImage().execute(imgUri.toString());
@@ -153,6 +190,18 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         });
     }
 
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.logout_button:
+                signOut();
+                break;
+            case R.id.submitButton:
+                mUser.setUserName(editText.getText().toString());
+                setProfile();
+                break;
+        }
+    }
+
     private class LoadProfileImage extends AsyncTask<String, Void, Bitmap> {
         protected Bitmap doInBackground(String... urls) {
             String imgUrl = urls[0];
@@ -199,6 +248,5 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
             }
         }
         return newInterests;
-
     }
 }

@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class  FragmentFriends extends FragmentExtension implements View.OnClickListener {
 
     private static final String TAG = "FragmentFriends";
@@ -38,7 +40,7 @@ public class  FragmentFriends extends FragmentExtension implements View.OnClickL
 
     public void initFriendRecyclerView() {
         Log.d(TAG, "init Friend Recycler View");
-        if (mUser.getUserFriends().isEmpty()) { //TODO: remove hard code
+        /*if (mUser.getUserFriends().isEmpty()) { //TODO: remove hard code
             mUser.addFriend(new Friend("1","jaime"));
             mUser.addFriend(new Friend("2", "andres"));
             mUser.addFriend(new Friend("3", "michael"));
@@ -49,7 +51,7 @@ public class  FragmentFriends extends FragmentExtension implements View.OnClickL
             Friend newReq2 = new Friend("6", "test");
             newReq2.setReq(true);
             mUser.addFriend(newReq2);
-        }
+        }*/
         RecyclerView recyclerView = view.findViewById(R.id.friendRecyclerView);
         FriendRecyclerViewAdapter recyclerViewAdapter =
                 new FriendRecyclerViewAdapter(mUser.getUserFriends(), view.getContext());
@@ -63,10 +65,11 @@ public class  FragmentFriends extends FragmentExtension implements View.OnClickL
             @Override
             public void onSuccessResponse(String result) {
                 try {
-                    JSONArray response = new JSONArray(result);
-                    Log.i(TAG, response.toString());
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonObject = new JSONObject((String)response.get(i));
+                    Log.i(TAG, "getting friend list");
+                    JSONObject response = new JSONObject(result);
+                    JSONArray friendsList = (JSONArray)response.get("friendList");
+                    for (int i = 0; i < friendsList.length(); i++) {
+                        JSONObject jsonObject = (JSONObject)friendsList.get(i);
                         String friendId = jsonObject.getString("id");
                         String friendUserName = jsonObject.getString("username");
                         mUser.addFriend(new Friend(friendId, friendUserName));
@@ -84,17 +87,17 @@ public class  FragmentFriends extends FragmentExtension implements View.OnClickL
             @Override
             public void onSuccessResponse(String result) {
                 try {
+                    Log.i(TAG, "getting friend request list");
                     JSONArray response = new JSONArray(result);
                     Log.i(TAG, response.toString());
                     for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonObject = new JSONObject((String)response.get(i));
-                        String senderId = jsonObject.getString("senderId");
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        String senderId = jsonObject.getString("_id");
                         String senderName = jsonObject.getString("senderName");
                         Friend newReq = new Friend(senderId, senderName);
                         newReq.setReq(true);
                         mUser.addFriend(newReq);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -112,6 +115,7 @@ public class  FragmentFriends extends FragmentExtension implements View.OnClickL
     }
 
     public void sendReq(String id) {
+        Log.i(TAG, "friend request sent");
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(id);
         RequestHttp requestHttp = RequestHttp.getRequestHttp();

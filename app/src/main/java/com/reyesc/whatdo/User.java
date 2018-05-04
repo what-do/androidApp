@@ -15,27 +15,29 @@ public class User implements Serializable {
     private String id;
     private String email;
     private String username;
-    //private String chosenName;
+    private String displayname;
     private ArrayList<Interest> interests;
     private ArrayList<Friend> friends;
     //private ArrayList<Group> groups;
     private ArrayList<String> sentInterests;
     private String activityFilter = "I'm by myself!";
 
-    private User(String id, String email, String username) {
+    private User(String id, String email, String username, String displayname) {
         this.id = id;
         this.email = email;
         this.username = username;
+        this.displayname = displayname;
         this.interests = new ArrayList<>();
         this.friends = new ArrayList<>();
     }
 
-    public static User getInstance(String id, String email, String username) {
+    public static User getInstance(String id, String email, String username, String displayname) {
         if (user_instance == null) {
-            user_instance = new User(id, email, username);
+            user_instance = new User(id, email, username, displayname);
         }
         return user_instance;
     }
+
 
     public static User getInstance() {
         return user_instance;
@@ -49,13 +51,11 @@ public class User implements Serializable {
         return this.username;
     }
 
-    //public String getChosenName() { return this.chosenName;}
+    public void setUserName(String name) {this.username = name;}
 
-    //public void setChosenName(String chosenName) { this.chosenName = chosenName;}
+    public String getDisplayName() { return this.displayname;}
 
-    public String getUserId() {
-        return this.id;
-    }
+    public String getUserId() { return this.id; }
 
     public String getUserEmail() {
         return this.email;

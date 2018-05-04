@@ -30,6 +30,7 @@ public class RequestHttp {
     private String baseUrl = "http://civil-ivy-200504.appspot.com/";
     private String friendReqUrl = "http://civil-ivy-200504.appspot.com/friendrequest/";
     private String reqRespondUrl = "http://civil-ivy-200504.appspot.com/friendrequest/respond/";
+    private String removeFriendUrl = "http://civil-ivy-200504.appspot.com/friendrequest/remove/";
 
     private RequestHttp() { }
 
@@ -146,7 +147,7 @@ public class RequestHttp {
         mRequestQueue.add(mStringRequest);
     }
 
-    public void postRequest(Context context, final String id, final String email, final String username) {
+    public void postRequest(Context context, final String id, final String email, final String username, final String displayname) {
         mRequestQueue = Volley.newRequestQueue(context);
         mStringRequest = new StringRequest(Request.Method.POST, userUrl, new Response.Listener<String>() {
             @Override
@@ -171,6 +172,7 @@ public class RequestHttp {
                 params.put("username", username);
                 params.put("id", id);
                 params.put("email", email);
+                params.put("displayname", displayname);
                 Log.i(TAG, params.toString());
                 return params;
             }
@@ -235,8 +237,37 @@ public class RequestHttp {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        params.put("sender", senderId);
+                        params.put("sender", recipId);
                         params.put("value", value);
+                        Log.i(TAG, params.toString());
+                        return params;
+                    }
+                };
+                mRequestQueue.add(mStringRequest);
+                break;
+            case 2: //remove a current friend
+                url = removeFriendUrl + senderId;
+                mStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "Error: " + error.toString());
+                    }
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+                        return headers;
+                    }
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("friend", recipId);
                         Log.i(TAG, params.toString());
                         return params;
                     }

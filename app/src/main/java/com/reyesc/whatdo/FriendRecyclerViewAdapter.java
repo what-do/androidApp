@@ -50,6 +50,16 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
             public void onClick(View view) {
                 JSONArray removedFriend = new JSONArray();
                 removedFriend.put(mFriends.get(position));
+                RequestHttp requestHttp = RequestHttp.getRequestHttp();
+
+                if (mFriends.get(position).isReq()) {
+                    //decline friend request
+                    requestHttp.postRequest(mContext, mUser.getUserId(), mFriends.get(position).getFriendId(), 1, false);
+                } else {
+                    //remove friend
+                    requestHttp.postRequest(mContext, mUser.getUserId(), mFriends.get(position).getFriendId(), 2, null);
+                }
+
 
                 //TODO: test this
                 //viewHolder.friendName.setVisibility(View.GONE);
@@ -64,6 +74,12 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
         viewHolder.acceptReq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //accept friend request
+                JSONArray removedFriend = new JSONArray();
+                removedFriend.put(mFriends.get(position));
+                RequestHttp requestHttp = RequestHttp.getRequestHttp();
+                requestHttp.postRequest(mContext, mUser.getUserId(), mFriends.get(position).getFriendId(), 1, true);
+
 
             }
         });
@@ -71,7 +87,6 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: what does this do
                 Toast.makeText(mContext, mFriends.get(position).getFriendUserName(), Toast.LENGTH_SHORT).show();
             }
         });

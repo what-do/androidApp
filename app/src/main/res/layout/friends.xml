@@ -8,16 +8,16 @@
     <TextView
         android:id="@+id/friendName"
         android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:gravity="left" />
 
     <Button
-        android:id="@+id/addFriend"
+        android:id="@+id/removeFriend"
+        android:drawableTop="@android:drawable/ic_menu_delete"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/friendName"
-        android:text="Remove Friend"
         />
 
 </RelativeLayout>

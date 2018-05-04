@@ -9,8 +9,13 @@
         android:id="@+id/user_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="Try Again"/>
+        android:visibility="gone" />
+
+    <EditText android:id="@+id/enter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Chosen User Name"
+        android:visibility="gone"/>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/login_button"

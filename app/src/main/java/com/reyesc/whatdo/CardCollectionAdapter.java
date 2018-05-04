@@ -16,7 +16,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
     private RecyclerView recyclerView;
     private List<ActivityCard> cardList;
     private int visibleThreshold = 3;
-    private int loadCount = 10;
+    private int loadCount = 20;
     private int totalLoaded;
     private boolean loading;
     private FragmentExtension.FragmentToActivityListener fragmentToActivityListener;

@@ -70,9 +70,7 @@ public class ActivityCard {
         return imageURI;
     }
 
-    public Bitmap getImage(){
-        return image;
-    }
+    public Bitmap getImage(){ return image; }
 
     public String getDate(){
         return date;

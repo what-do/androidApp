@@ -181,13 +181,13 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
                         }
                         cardList.add(new ActivityCard(totalLoaded, id, image,"Date\n31", name, tags, description, address, yelp, sponsored));
                         totalLoaded++;
-                        notifyItemInserted(cardList.size());
                     }
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
                 }
                 loading = false;
+                notifyDataSetChanged();
             }
         });
     }

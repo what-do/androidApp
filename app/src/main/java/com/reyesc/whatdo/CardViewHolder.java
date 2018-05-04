@@ -139,13 +139,19 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
                 int startY = height / 2 - width / 2;
                 height = Math.round(width / ratioWH);
                 startY = startY + height > image.getHeight() ? image.getHeight() - height : startY;
-                startY = startY < 0 ? 0 : startY;
+                if(startY < 0) {
+                    startY = startY < 0 ? 0 : startY;
+                    height = image.getHeight();
+                }
                 image = Bitmap.createBitmap(image, 0, startY, width, height);
             } else if (width > height){
                 int startX = width / 2 - height / 2;
                 width = Math.round(height / ratioHW);
                 startX = startX + width > image.getWidth() ? image.getWidth() - width : startX;
-                startX = startX < 0 ? 0 : startX;
+                if(startX < 0) {
+                    startX = startX < 0 ? 0 : startX;
+                    width = image.getWidth();
+                }                
                 image = Bitmap.createBitmap(image, startX, 0, width, height);
             }
             imageView.setImageBitmap(image);

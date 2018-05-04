@@ -67,6 +67,7 @@ public class  FragmentFriends extends FragmentExtension implements View.OnClickL
                 try {
                     Log.i(TAG, "getting friend list");
                     JSONObject response = new JSONObject(result);
+                    Log.i(TAG, response.toString());
                     JSONArray friendsList = (JSONArray)response.get("friendList");
                     for (int i = 0; i < friendsList.length(); i++) {
                         JSONObject jsonObject = (JSONObject)friendsList.get(i);

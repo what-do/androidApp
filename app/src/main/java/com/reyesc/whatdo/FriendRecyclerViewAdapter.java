@@ -3,6 +3,7 @@ package com.reyesc.whatdo;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,35 +40,34 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
         Collections.sort(mFriends);
         int blue = viewHolder.friendName.getResources().getColor(R.color.blue);
         viewHolder.friendName.setText(mFriends.get(position).getFriendUserName());
+        viewHolder.removeFriend.setVisibility(View.VISIBLE);
         if (mFriends.get(position).isReq()) {
             viewHolder.friendName.setTextColor(blue);
-            //viewHolder.removeFriend.setVisibility(View.GONE);
             viewHolder.acceptReq.setVisibility(View.VISIBLE);
         }
 
         viewHolder.removeFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONArray removedFriend = new JSONArray();
-                removedFriend.put(mFriends.get(position));
+                Friend removedFriend = mFriends.get(position);
                 RequestHttp requestHttp = RequestHttp.getRequestHttp();
 
-                if (mFriends.get(position).isReq()) {
+                if (removedFriend.isReq()) {
                     //decline friend request
-                    requestHttp.postRequest(mContext, mUser.getUserId(), mFriends.get(position).getFriendId(), 1, false);
+                    Log.i(TAG, "declining request");
+                    requestHttp.postRequest(mContext, mUser.getUserId(), removedFriend.getFriendId(), 1, false);
+                    mUser.removeFriend(removedFriend.getFriendId());
+                    mFriends = mUser.getUserFriends();
+                    mFriends.remove(removedFriend);
+
                 } else {
                     //remove friend
-                    requestHttp.postRequest(mContext, mUser.getUserId(), mFriends.get(position).getFriendId(), 2, null);
+                    Log.i(TAG, "removing friend");
+                    requestHttp.postRequest(mContext, mUser.getUserId(), removedFriend.getFriendUserName(), 2, null);
+                    mUser.removeFriend(removedFriend.getFriendId());
+                    mFriends = mUser.getUserFriends();
+                    mFriends.remove(removedFriend);
                 }
-
-
-                //TODO: test this
-                //viewHolder.friendName.setVisibility(View.GONE);
-                //viewHolder.removeFriend.setVisibility(View.GONE);
-
-                //RequestHttp requestHttp = RequestHttp.getRequestHttp();
-                //TODO: need endpoint for removing friends
-                //requestHttp.putStringRequest(mContext, mUser.getUserId(), "removefriends", removedFriend);
             }
         });
 
@@ -75,12 +75,10 @@ public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHo
             @Override
             public void onClick(View view) {
                 //accept friend request
-                JSONArray removedFriend = new JSONArray();
-                removedFriend.put(mFriends.get(position));
+                Friend newFriend = mFriends.get(position);
+                mUser.addFriend(newFriend);
                 RequestHttp requestHttp = RequestHttp.getRequestHttp();
-                requestHttp.postRequest(mContext, mUser.getUserId(), mFriends.get(position).getFriendId(), 1, true);
-
-
+                requestHttp.postRequest(mContext, mUser.getUserId(), newFriend.getFriendId(), 1, true);
             }
         });
 

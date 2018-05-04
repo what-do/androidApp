@@ -37,10 +37,6 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     private RecyclerView recyclerView;
     private InterestRecyclerViewAdapter recyclerViewAdapter;
 
-    //ArrayList<Interest> interests =  new ArrayList<>();
-    ArrayList<Interest> possibleInterests =  new ArrayList<>();
-    //ArrayList<Boolean> checkBoxes = new ArrayList<>();
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -51,10 +47,8 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
         imgUri = getArguments().getParcelable(IMG);
 
         Button logoutButton = view.findViewById(R.id.logout_button);
-        Button updateButton = view.findViewById(R.id.update_button);
 
         logoutButton.setOnClickListener(this);
-        updateButton.setOnClickListener(this);
 
         initRecyclerView();
         setProfile();
@@ -70,14 +64,7 @@ public class FragmentProfile extends FragmentExtension implements View.OnClickLi
     }
 
     public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.logout_button:
                 signOut();
-                break;
-            case R.id.update_button:
-                getInterests();
-                break;
-        }
     }
 
     private void signOut() {

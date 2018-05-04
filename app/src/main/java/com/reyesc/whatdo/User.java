@@ -96,6 +96,16 @@ public class User implements Serializable {
         }
     }
 
+    public String findFriendId(String friend){
+        for (Friend f : this.friends){
+            if (f.getFriendUserName().toLowerCase().equals(friend.toLowerCase())){
+                return f.getFriendId();
+            }
+
+        }
+        return null;
+    }
+
     public void addFriend (Friend friend) {
         for (Friend f : this.friends) {
             if (f.getFriendId() == friend.getFriendId()) {
@@ -120,6 +130,8 @@ public class User implements Serializable {
     public void setActivityFilter(String activityFilter) {
         this.activityFilter = activityFilter;
     }
+
+
 
     /*public void addGroup (String groupName) {
         for (Group group : this.groups) {

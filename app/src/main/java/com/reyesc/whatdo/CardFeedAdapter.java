@@ -183,7 +183,11 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
                                 }
                             }
                             JSONArray addressJSON = activity.getJSONArray("address").getJSONObject(0).getJSONArray("display_address");
-                            String address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
+                            String address;
+                            if (addressJSON.length() == 2) {
+                                address = addressJSON.getString(0) + "\n" + addressJSON.getString(1);
+                            }
+                            else {address = addressJSON.getString(0);}
                             String id = activity.getString("_id");
                             String image = activity.getString("image");
                             String yelp = activity.getString("yelp");
@@ -205,7 +209,7 @@ public class CardFeedAdapter extends RecyclerView.Adapter<CardViewHolder> implem
             });
         } else {
             RequestHttp requestHttp = RequestHttp.getRequestHttp();
-            requestHttp.getJointActivityRequest(recyclerView.getContext(), User.getInstance().getUserId(), User.getInstance().getActivityFilter(), new RequestHttp.VolleyCallback() {
+            requestHttp.getJointActivityRequest(recyclerView.getContext(), User.getInstance().getUserId(), User.getInstance().findFriendId(User.getInstance().getActivityFilter()), new RequestHttp.VolleyCallback() {
                 @Override
                 public void onSuccessResponse(String result) {
                     try {

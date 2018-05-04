@@ -84,7 +84,7 @@ public class RequestHttp {
     public void getJointActivityRequest(Context context, String id, String friendId, final VolleyCallback callback) {
         mRequestQueue = getmRequestQueue(context);
 
-        String getUrl = userUrl + "/jointactivites/" + id + "/friendId/" + friendId;
+        String getUrl = userUrl + "jointactivities/" + id + "/friendId/123";
 
         Log.i(TAG, "sending to: " + getUrl);
 

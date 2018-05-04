@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,7 +81,7 @@ public class RequestHttp {
         mRequestQueue.add(mStringRequest);
     }
 
-    public void putStringRequest(Context context, String id, String task, final JSONArray jsonArray) {
+    public void putStringRequest(Context context, String id, final String task, final JSONArray jsonArray) {
         mRequestQueue = Volley.newRequestQueue(context);
         String requestUrl = userUrl + task + "/" + id;
         Log.i(TAG, "sending to " + requestUrl);
@@ -104,7 +105,17 @@ public class RequestHttp {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("interests", jsonArray.toString());
+                String paramType = "interests";
+                String param = jsonArray.toString();
+                if(task.contains("like")){
+                    paramType = "like";
+                    try {
+                        param = jsonArray.getString(0);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                params.put(paramType, param);
                 Log.i(TAG, "Did it send this?: " + params.toString());
                 return params;
             }

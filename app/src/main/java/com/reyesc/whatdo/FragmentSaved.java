@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class FragmentSaved extends FragmentExtension {
     private View view;
     private ArrayList<ActivityCard> cardList;
+    private CardCollectionAdapter cardCollection;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class FragmentSaved extends FragmentExtension {
             recyclerView.setItemAnimator(new DefaultItemAnimator());
 
             cardList = new ArrayList<>();
-            CardCollectionAdapter cardCollection = new CardCollectionAdapter(recyclerView, cardList, fragmentToActivityListener);
+            cardCollection = new CardCollectionAdapter(recyclerView, cardList, fragmentToActivityListener);
             recyclerView.setAdapter(cardCollection);
         }
 
@@ -49,6 +50,12 @@ public class FragmentSaved extends FragmentExtension {
             throw new ClassCastException(activity.toString()
                     + " must implement FragmentToActivityListener");
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(cardCollection != null) cardCollection.loadMoreCards();
     }
 
     public void addToCollection(ActivityCard card) {

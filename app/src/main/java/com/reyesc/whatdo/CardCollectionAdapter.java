@@ -138,7 +138,6 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
         int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
         if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
             // End has been reached, do something
-            fragmentToActivityListener.toasting("More cards loaded");
             loading = true;
             loadMoreCards();
         }
@@ -170,8 +169,7 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
                         String image = activity.getString("image");
                         String yelp = activity.getString("yelp");
                         String description = activity.getString("description");
-                        cardList.add(new ActivityCard(totalLoaded, id, image,"Date\n31", name, tags, description, address, yelp, false));
-                        totalLoaded++;
+                        createCard(id, image, name, tags, description, address, yelp);
                     }
                 }
                 catch (JSONException e) {
@@ -182,6 +180,16 @@ public class CardCollectionAdapter extends RecyclerView.Adapter<CardViewHolder> 
             }
         });
         checkEmpty();
+    }
+
+    private void createCard(String id, String image, String name, String tags, String description, String address, String yelp){
+        for (int j = 0; j < cardList.size(); j++) {
+            if (cardList.get(j).getYelp().equals(yelp)) {
+                return;
+            }
+        }
+        cardList.add(new ActivityCard(totalLoaded, id, image,"Date\n31", name, tags, description, address, yelp, false));
+        totalLoaded++;
     }
 
     private void checkEmpty(){

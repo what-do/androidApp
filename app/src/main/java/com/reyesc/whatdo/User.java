@@ -18,7 +18,7 @@ public class User implements Serializable {
     private String displayname;
     private ArrayList<Interest> interests;
     private ArrayList<Friend> friends;
-    //private ArrayList<Group> groups;
+    private ArrayList<Friend> friendRequests;
     private ArrayList<String> sentInterests;
     private String activityFilter = "I'm by myself!";
 
@@ -29,6 +29,7 @@ public class User implements Serializable {
         this.displayname = displayname;
         this.interests = new ArrayList<>();
         this.friends = new ArrayList<>();
+        this.friendRequests = new ArrayList<>();
     }
 
     public static User getInstance(String id, String email, String username, String displayname) {
@@ -66,6 +67,8 @@ public class User implements Serializable {
     }
 
     public ArrayList<Friend> getUserFriends() { return this.friends; }
+
+    public ArrayList<Friend> getUserFriendReqs() {return this.friendRequests;}
 
     public ArrayList<String> getUserFriendsStringArray(){
 
@@ -119,6 +122,34 @@ public class User implements Serializable {
         for (Friend friend : this.friends) {
             if (friend.getFriendId() == id) {
                 this.friends.remove(friend);
+                return;
+            }
+        }
+    }
+
+    public String findFriendReqId(String friendReq){
+        for (Friend f : this.friendRequests){
+            if (f.getFriendUserName().toLowerCase().equals(friendReq.toLowerCase())){
+                return f.getFriendId();
+            }
+
+        }
+        return null;
+    }
+
+    public void addFriendReq (Friend friend) {
+        for (Friend f : this.friendRequests) {
+            if (f.getFriendId() == friend.getFriendId()) {
+                return;
+            }
+        }
+        this.friendRequests.add(friend);
+    }
+
+    public void removeFriendReq (String id) {
+        for (Friend friend : this.friendRequests) {
+            if (friend.getFriendId() == id) {
+                this.friendRequests.remove(friend);
                 return;
             }
         }

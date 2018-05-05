@@ -6,39 +6,206 @@
     android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
     tools:context="com.reyesc.whatdo.FragmentFriends">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/whatdo"
-            android:text="Friends"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/pretty_blue" />
-
-    <LinearLayout
+    <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-        <Button
-            android:id="@+id/sendReq"
-            android:layout_width="101dp"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            android:textColor="@color/pretty_blue" />
-
-        <EditText
-            android:id="@+id/friendId"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="@color/white"
-            android:backgroundTint="@color/pretty_gray"
-            android:hint="enter id"
-            android:paddingBottom="5dp"
-            android:textAlignment="center"
-            android:textColorHint="@color/white" />
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/friendRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/sendReq"
+                            android:layout_width="101dp"
+                            android:layout_height="wrap_content"
+                            android:text="Add"
+                            android:textColor="@color/pretty_blue" />
+
+                        <EditText
+                            android:id="@+id/friendId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:background="@color/white"
+                            android:backgroundTint="@color/pretty_gray"
+                            android:hint="Add A Friend By Username: "
+                            android:paddingBottom="5dp"
+                            android:textAlignment="center"
+                            android:textColorHint="@color/white" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/friendName1"
+                            android:layout_width="271dp"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/pretty_blue"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/removeFriend1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:drawableTop="@android:drawable/ic_menu_delete" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/friendName2"
+                            android:layout_width="271dp"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/pretty_blue"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/removeFriend2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:drawableTop="@android:drawable/ic_menu_delete" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/friendName3"
+                            android:layout_width="271dp"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/pretty_blue"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/removeFriend3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:drawableTop="@android:drawable/ic_menu_delete" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/friendReq1"
+                            android:layout_width="271dp"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/pretty_blue"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/addFriend1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:drawableTop="@android:drawable/ic_menu_add" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/friendReq2"
+                            android:layout_width="271dp"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/pretty_blue"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/addFriend2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:drawableTop="@android:drawable/ic_menu_add" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/friendReq3"
+                            android:layout_width="271dp"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/pretty_blue"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/addFriend3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:drawableTop="@android:drawable/ic_menu_add" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </LinearLayout>

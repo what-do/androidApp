@@ -77,7 +77,4 @@
         android:layout_height="240dp">
     </android.support.v7.widget.RecyclerView>
 
-
-
-
 </LinearLayout>
